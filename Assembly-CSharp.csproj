@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\Perk.cs" />
+    <Compile Include="Assets\Scripts\Player Controller.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
   </ItemGroup>
