@@ -19,4 +19,7 @@ public class Character : ScriptableObject
     public List<Weapon> currentWeapons = new List<Weapon>();
 
     public List<Perk> perks = new List<Perk>();
+
+    public Sprite body;
+    public Sprite aim;
 }
