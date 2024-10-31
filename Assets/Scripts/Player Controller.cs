@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed; 
     public Character player; 
 
-    private Transform characterBody;
+    private Transform aimBody;
 
     private Rigidbody2D myRigidbody2D;
 
@@ -19,8 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        characterBody = transform.Find("Aim");
-        Debug.Log(characterBody.name);
+        aimBody = transform.Find("Aim");
         myRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -55,12 +54,14 @@ public class PlayerController : MonoBehaviour
 
     public void OnLook(InputValue lookValue)
     {
-        lookDirection = lookValue.Get<Vector2>().normalized;
+        Vector2 mousePosition = lookValue.Get<Vector2>();
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-        if (Mathf.Abs(lookDirection.magnitude) > 0)
-        {
-            //Should get current mouse pointer position and rotate aim according this value.
-        }
+        Vector3 direction = worldMousePosition - aimBody.position;
+        direction.Normalize();
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        aimBody.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 
     public void onAttack(InputValue attackValue) 
