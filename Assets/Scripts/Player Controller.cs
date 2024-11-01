@@ -64,9 +64,23 @@ public class PlayerController : MonoBehaviour
         aimBody.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
     }
 
-    public void onAttack(InputValue attackValue) 
-    { 
+    public void OnAttack(InputValue attackValue) 
+    {
+        Debug.Log("Fire");
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        foreach (var item in player.currentWeapons)
+        {
+            GameObject projectile = new GameObject("Projectile");
+            projectile.transform.position = aimBody.position;
 
+            SpriteRenderer spriteRenderer = projectile.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = item.projectileView;
+
+            Rigidbody2D rb = projectile.AddComponent<Rigidbody2D>();
+            rb.gravityScale = 0;
+            Vector2 projectileDirecton = (mousePosition - (Vector2)aimBody.position).normalized;
+            rb.AddForce(new Vector2(projectileDirecton.x*item.projectileSpeed, projectileDirecton.y*item.projectileSpeed));
+        }
     }
     #endregion
 

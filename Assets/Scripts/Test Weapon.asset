@@ -19,9 +19,9 @@ MonoBehaviour:
   minDmg: 0
   maxDmg: 0
   numberOfProjectiles: 1
-  projectileSpeed: 1
+  projectileSpeed: 40
   projectileCD: 1
   dmgRadius: 0
   isFlyingThrough: 0
   weaponView: {fileID: 0}
-  projectileView: {fileID: 0}
+  projectileView: {fileID: 21300000, guid: de7cd932501094988a25e04e44b1b9f8, type: 3}
