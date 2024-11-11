@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a45c1f79c1c9f44b27542ec51293b8, type: 3}
+  m_Name: Test Perk
+  m_EditorClassIdentifier: 
+  perkName: Increase DMG
+  description: 
+  levelRequired: 1
+  level: 1
+  upgradeParameters:
+  - name: minDmg
+    value: 10%
+    type: percentage
+  - name: maxDmg
+    value: 10%
+    type: percentage
+  perkIcon: {fileID: 0}

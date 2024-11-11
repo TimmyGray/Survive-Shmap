@@ -7,3 +7,10 @@ public enum WEAPON_TYPE
     PLASMA,
     DEFAULT
 }
+
+public enum PASSIVE_IMPROVMENT_TYPE
+{
+    SHIELD,
+    HP_REGEN,
+    MAX_HP,
+}
