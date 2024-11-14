@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae52f4fee7d65ef4cb1f3e0fdee81003, type: 3}
+  m_Name: Test Character
+  m_EditorClassIdentifier: 
+  characterName: Player
+  currentHealth: 100
+  maxHealth: 100
+  currentExp: 0
+  expToNextLvl: 100
+  level: 1
+  minDmg: 1
+  maxDmg: 2
+  speed: 50
+  currentWeapons: []
+  currentPassiveImprovments:
+  - {fileID: 11400000, guid: 9d4407c1a5003cb429cc470964b6a471, type: 2}
+  perks:
+  - {fileID: 11400000, guid: 56bb9d8b92e07064bb2eeb5922fa43d7, type: 2}
+  allWeapons:
+  - {fileID: 2995510740879746053, guid: 2e7b8820e5228fe4b8ab2e0c4d0cf9c4, type: 3}
+  - {fileID: 5285849773954166028, guid: e8b64d7377312aa49bd19e85bbded1e8, type: 3}
+  - {fileID: 7095219546620694277, guid: 28f98a25bd7945f478f4cd2981953fe5, type: 3}
