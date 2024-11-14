@@ -29,3 +29,4 @@ MonoBehaviour:
   allWeapons:
   - {fileID: 2995510740879746053, guid: 2e7b8820e5228fe4b8ab2e0c4d0cf9c4, type: 3}
   - {fileID: 5285849773954166028, guid: e8b64d7377312aa49bd19e85bbded1e8, type: 3}
+  - {fileID: 7095219546620694277, guid: 28f98a25bd7945f478f4cd2981953fe5, type: 3}

@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Weapons;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,16 +21,12 @@ public class PlayerController : MonoBehaviour
 
         // Initialize the player's current weapons
         // Only for the testing phase
-        for(int i = 0; i < player.allWeapons.Count; i++){
+        for(int i = 0; i < player.allWeapons.Count; i++)
+        {
             GameObject weapon = Instantiate(player.allWeapons[i], transform.position, Quaternion.identity);
             SetWeaponPosition(weapon);
             player.currentWeapons.Add(weapon);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     private void FixedUpdate()
@@ -64,10 +61,12 @@ public class PlayerController : MonoBehaviour
         foreach (GameObject weapon in player.currentWeapons)
         {
             bool isWeaponExist = weapon.TryGetComponent<WeaponController>(out WeaponController weaponController);
-            if (isWeaponExist && weaponController.timeToNextAttack <= 0){
+            if (isWeaponExist && weaponController.timeToNextAttack <= 0)
+            {
                 weaponController.Fire();
             }
-            else{
+            else
+            {
                 weaponController.timeToNextAttack -= Time.fixedDeltaTime;
             }
         }
@@ -82,9 +81,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void LevelUp()
-    {
-    }
+    public void LevelUp(){}
 
     /// <summary>
     /// Change the player's current weapon. Add, Change or Level up the weapon depending on the situation.
@@ -93,19 +90,25 @@ public class PlayerController : MonoBehaviour
     public void ChangeWeapon(GameObject weapon, int? index)
     {
         WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
-        foreach (GameObject oldWeapon in player.currentWeapons){
+        foreach (GameObject oldWeapon in player.currentWeapons)
+        {
             WeaponController oldWeaponController = oldWeapon.GetComponent<WeaponController>();
-            switch(index.HasValue){
-                case true:{
+            switch(index.HasValue)
+            {
+                case true:
+                {
                     SetWeaponPosition(weapon);
                     player.currentWeapons[index.Value] = weapon;
                     break;
                 }
-                case false:{
-                    if (oldWeaponController.weapon.type == newWeaponController.weapon.type){
+                case false:
+                {
+                    if (oldWeaponController.weapon.type == newWeaponController.weapon.type)
+                    {
                         oldWeaponController.LevelUp();
                     }
-                    else{
+                    else
+                    {
                         SetWeaponPosition(weapon);
                         player.currentWeapons.Add(weapon);
                     }
@@ -118,7 +121,8 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Set the weapon's position and parent gameobject to the correct weapon slot according to the weapon type.
     /// </summary>
-    private void SetWeaponPosition(GameObject weapon){
+    private void SetWeaponPosition(GameObject weapon)
+    {
         switch(weapon.GetComponent<WeaponController>().weapon.type)
         {
             case WEAPON_TYPE.PLASMA:
@@ -152,8 +156,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangePassiveImprovment(PassiveImprovment passiveImprovment){
-    }
+    public void ChangePassiveImprovment(PassiveImprovment passiveImprovment){}
 
 /// <summary>
 /// Currently, this fucntion required for the testing phase. 
@@ -161,7 +164,8 @@ public class PlayerController : MonoBehaviour
 /// we need to reset the player's current weapons, passive improvments 
 /// and perks when the application quits.
 /// </summary>
-    public void OnApplicationQuit() {  
+    public void OnApplicationQuit() 
+    {  
         player.currentWeapons = new List<GameObject>();
         player.currentPassiveImprovments = new List<PassiveImprovment>();
         player.perks = new List<Perk>();

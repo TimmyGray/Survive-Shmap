@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1423694077220650367}
   - component: {fileID: 537016486004399968}
   - component: {fileID: 748304144872073585}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plazma Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

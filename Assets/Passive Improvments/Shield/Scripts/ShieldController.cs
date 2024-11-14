@@ -24,7 +24,8 @@ public class ShieldController : PassiveImrovmentController
     {
         if(isActive){
             timeToEnd -= Time.deltaTime;
-            if(timeToEnd <= 0){
+            if(timeToEnd <= 0)
+            {
                 Deactivate();
             }
         }
@@ -38,7 +39,8 @@ public class ShieldController : PassiveImrovmentController
 
     public IEnumerator ActivatingProcess()
     {
-        while(circleCollider.radius < passiveImprovment.radius){
+        while(circleCollider.radius < passiveImprovment.radius)
+        {
             circleCollider.radius += passiveImprovment.timeToActivate;
             yield return null;
         }
@@ -54,7 +56,8 @@ public class ShieldController : PassiveImrovmentController
 
     public IEnumerator DeactivatingProcess()
     {
-        while(circleCollider.radius > 0){
+        while(circleCollider.radius > 0)
+        {
             circleCollider.radius -= passiveImprovment.timeToActivate;
             yield return null;
         }
