@@ -423,10 +423,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3815537905910854816, guid: 64444ac7047ff3943ba8a80154571f13, type: 3}
+      propertyPath: m_Name
+      value: Passive Improvment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5085275425311068577, guid: 64444ac7047ff3943ba8a80154571f13, type: 3}
     - {fileID: 2029512711212905522, guid: 64444ac7047ff3943ba8a80154571f13, type: 3}
+    - {fileID: 7229458881511211156, guid: 64444ac7047ff3943ba8a80154571f13, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64444ac7047ff3943ba8a80154571f13, type: 3}

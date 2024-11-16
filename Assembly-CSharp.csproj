@@ -75,10 +75,10 @@
     <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovment.cs" />
     <Compile Include="Assets\Weapons\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerProjectile.cs" />
-    <Compile Include="Assets\Passive Improvments\Scripts\PassiveImrovmentController.cs" />
     <Compile Include="Assets\Perks\Scripts\Perk.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\ExplosiveProjectile.cs" />
     <Compile Include="Assets\Weapons\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovmentController.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\PlasmaProjectile.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\BlasterController.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />

@@ -1,67 +1,108 @@
 using System.Collections;
-using System.Security.AccessControl;
 using UnityEngine;
-using System.Collections.Generic;
 
-public class ShieldController : PassiveImrovmentController
+namespace PassiveImprovments
 {
-    private CircleCollider2D circleCollider;
-    private bool isActive;
-
-    private float timeToEnd;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class ShieldController : PassiveImprovmentController
     {
-        circleCollider = GetComponent<CircleCollider2D>();
-        timeToEnd = passiveImprovment.duration;
-        isActive = false;
-        gameObject.SetActive(false);
-        animator = GetComponent<Animator>();
-    }
+        private CircleCollider2D circleCollider;
+        private float timeToDeactivate;
+        private float timeToActivate;
+        private bool transitioning;
+        void Awake()
+        {
+            circleCollider = GetComponent<CircleCollider2D>();
+            timeToDeactivate = passiveImprovment.duration;
+            timeToActivate = 0;
+            animator = GetComponent<Animator>();
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(isActive){
-            timeToEnd -= Time.deltaTime;
-            if(timeToEnd <= 0)
+        void FixedUpdate()
+        {
+            if(inUse)
             {
-                Deactivate();
+                if(timeToActivate <= 0 && !isActive && !transitioning)
+                {
+                    Activate();
+                } else if(timeToDeactivate > 0)
+                {
+                    timeToDeactivate -= Time.fixedDeltaTime;
+                }
+
+                if(timeToDeactivate <= 0 && isActive && !transitioning)
+                {
+                    Deactivate();
+                } else if (timeToActivate > 0)
+                {
+                    timeToActivate -= Time.fixedDeltaTime;
+                }
             }
+
         }
-    }
+    
 
-    public override void Activate()
-    {
-        gameObject.SetActive(true);
-        StartCoroutine(ActivatingProcess());
-    }
-
-    public IEnumerator ActivatingProcess()
-    {
-        while(circleCollider.radius < passiveImprovment.radius)
+        public override void Activate()
         {
-            circleCollider.radius += passiveImprovment.timeToActivate;
-            yield return null;
+            transitioning = true;
+            animator.SetTrigger("Activate");
+            StartCoroutine(ActivatingProcess());
         }
-        animator.SetTrigger("Activate");
-        isActive = true;
-    }
 
-    public override void Deactivate()
-    {
-        animator.SetTrigger("Deactivate");
-        StartCoroutine(DeactivatingProcess());
-    }
-
-    public IEnumerator DeactivatingProcess()
-    {
-        while(circleCollider.radius > 0)
+        /// <summary>
+        /// Activate the shield.
+        /// Using a coroutine to animate the shield's collider growing in size.
+        /// </summary>
+        public IEnumerator ActivatingProcess()
         {
-            circleCollider.radius -= passiveImprovment.timeToActivate;
-            yield return null;
+            while(circleCollider.radius < passiveImprovment.radius)
+            {
+                circleCollider.radius += passiveImprovment.activatingTime;
+                yield return null;
+            }
+            yield return new WaitForSeconds(passiveImprovment.activatingTime);
+            
+            timeToDeactivate = passiveImprovment.duration;
+            timeToActivate = 0;
+            isActive = true;
+            inUse = true;
+            transitioning = false;
+            animator.SetBool("IsActive", true);
         }
-        isActive = false;
-        gameObject.SetActive(false);
+
+        public override void Deactivate(bool? fullDeactivate = false)
+        {
+            transitioning = true;
+            if(fullDeactivate == true)
+            {
+                    inUse = false;
+            }
+            animator.SetTrigger("Deactivate");
+            StartCoroutine(DeactivatingProcess());
+        }
+
+        /// <summary>
+        /// Deactivate the shield.
+        /// Using a coroutine to animate the shield's collider shrinking in size.
+        /// </summary>
+        public IEnumerator DeactivatingProcess()
+        {
+            while(circleCollider.radius > 0.01f)
+            {
+                circleCollider.radius -= passiveImprovment.activatingTime;
+                yield return null;
+            }
+            yield return new WaitForSeconds(passiveImprovment.activatingTime);
+            
+            timeToActivate = passiveImprovment.cooldown;
+            timeToDeactivate = 0;
+            isActive = false;
+            transitioning = false;
+            animator.SetBool("IsActive", false);
+        }
+
+        public override void LevelUp()
+        {
+            
+        }
     }
 }
