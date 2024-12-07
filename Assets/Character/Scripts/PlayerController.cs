@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Weapons;
+using PassiveImprovments;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,11 +22,16 @@ public class PlayerController : MonoBehaviour
 
         // Initialize the player's current weapons
         // Only for the testing phase
-        for(int i = 0; i < player.allWeapons.Count; i++)
+        foreach (GameObject weapon in player.allWeapons)
         {
-            GameObject weapon = Instantiate(player.allWeapons[i], transform.position, Quaternion.identity);
-            SetWeaponPosition(weapon);
-            player.currentWeapons.Add(weapon);
+            ChangeWeapon(Instantiate(weapon, transform.position, Quaternion.identity));
+        }
+
+        // Initialize the player's current passive improvments
+        // Only for the testing phase
+        foreach (GameObject passiveImprovment in player.allPassiveImprovments)
+        {
+            ChangePassiveImprovment(Instantiate(passiveImprovment, transform.position, Quaternion.identity));
         }
     }
 
@@ -65,7 +71,7 @@ public class PlayerController : MonoBehaviour
             {
                 weaponController.Fire();
             }
-            else
+            else if (isWeaponExist)
             {
                 weaponController.timeToNextAttack -= Time.fixedDeltaTime;
             }
@@ -87,12 +93,17 @@ public class PlayerController : MonoBehaviour
     /// Change the player's current weapon. Add, Change or Level up the weapon depending on the situation.
     /// Should be called when the player levels up from the level up menu.
     /// </summary>
-    public void ChangeWeapon(GameObject weapon, int? index)
+    /// <param name="weapon">The weapon to be changed.</param>
+    /// <param name="index">The index of the weapon to be changed. If null, the weapon will be added to the player's current weapons or level up if the weapon is already in the player's current weapons.</param>
+    public void ChangeWeapon(GameObject weapon, int? index = null)
     {
-        WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
-        foreach (GameObject oldWeapon in player.currentWeapons)
+        if(player.currentWeapons.Count==0)
         {
-            WeaponController oldWeaponController = oldWeapon.GetComponent<WeaponController>();
+            SetWeaponPosition(weapon);
+            player.currentWeapons.Add(weapon);
+        }
+        else
+        {
             switch(index.HasValue)
             {
                 case true:
@@ -103,9 +114,12 @@ public class PlayerController : MonoBehaviour
                 }
                 case false:
                 {
-                    if (oldWeaponController.weapon.type == newWeaponController.weapon.type)
+                    WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
+                    GameObject oldWeapon = player.currentWeapons.Find(oldWeapon => oldWeapon.GetComponent<WeaponController>().weapon.type == newWeaponController.weapon.type);
+                    if (oldWeapon != null)
                     {
-                        oldWeaponController.LevelUp();
+                        WeaponController oldWeaponController = oldWeapon.GetComponent<WeaponController>();
+                        oldWeaponController.LevelUp();                        
                     }
                     else
                     {
@@ -121,6 +135,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Set the weapon's position and parent gameobject to the correct weapon slot according to the weapon type.
     /// </summary>
+    /// <param name="weapon">The weapon to be set.</param>
     private void SetWeaponPosition(GameObject weapon)
     {
         switch(weapon.GetComponent<WeaponController>().weapon.type)
@@ -156,7 +171,63 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ChangePassiveImprovment(PassiveImprovment passiveImprovment){}
+    /// <summary>
+    /// Set the passive improvment's position and parent gameobject to the correct passive improvment slot.
+    /// </summary>
+    /// <param name="passiveImprovment">The passive improvment to be set.</param>
+    public void SetPassiveImprovmentPosition(GameObject passiveImprovment)
+    {
+        Transform passiveImprovmentSlot = transform.Find("Passive Improvment");
+        passiveImprovment.transform.position = passiveImprovmentSlot.position;
+        passiveImprovment.transform.parent = passiveImprovmentSlot;
+    }
+
+    /// <summary>
+    /// Change the player's current passive improvment. Add, Change or Level up the passive improvment depending on the situation.
+    /// Should be called when the player levels up from the level up menu.
+    /// </summary>
+    /// <param name="passiveImprovment">The passive improvment to be changed.</param>
+    /// <param name="index">The index of the passive improvment to be changed. If null, the passive improvment will be added to the player's current passive improvments or level up if the passive improvment is already in the player's current passive improvments.</param>
+    public void ChangePassiveImprovment(GameObject passiveImprovment, int? index = null)
+    {
+        PassiveImprovmentController newPassiveImprovmentController = passiveImprovment.GetComponent<PassiveImprovmentController>();
+        GameObject oldPassiveImprovment = player.currentPassiveImprovments.Find(oldPassiveImprovment => oldPassiveImprovment.GetComponent<PassiveImprovmentController>().passiveImprovment.type == newPassiveImprovmentController.passiveImprovment.type);
+
+        if(player.currentPassiveImprovments.Count==0)
+        {
+            SetPassiveImprovmentPosition(passiveImprovment);
+            player.currentPassiveImprovments.Add(passiveImprovment);
+            newPassiveImprovmentController.Activate();
+        }
+        else
+        {
+            switch(index.HasValue)
+            {
+                case true:
+                {
+                    oldPassiveImprovment.GetComponent<PassiveImprovmentController>().Deactivate(true);
+                    SetPassiveImprovmentPosition(passiveImprovment);
+                    player.currentPassiveImprovments[index.Value] = passiveImprovment;
+                    newPassiveImprovmentController.Activate();
+                    break;
+                }
+                case false:
+                {
+                    if (oldPassiveImprovment != null)
+                    {
+                        oldPassiveImprovment.GetComponent<PassiveImprovmentController>().LevelUp();
+                    }
+                    else
+                    {
+                        SetPassiveImprovmentPosition(passiveImprovment);
+                        player.currentPassiveImprovments.Add(passiveImprovment);
+                        newPassiveImprovmentController.Activate();
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
 /// <summary>
 /// Currently, this fucntion required for the testing phase. 
@@ -167,7 +238,7 @@ public class PlayerController : MonoBehaviour
     public void OnApplicationQuit() 
     {  
         player.currentWeapons = new List<GameObject>();
-        player.currentPassiveImprovments = new List<PassiveImprovment>();
+        player.currentPassiveImprovments = new List<GameObject>();
         player.perks = new List<Perk>();
     }
 }

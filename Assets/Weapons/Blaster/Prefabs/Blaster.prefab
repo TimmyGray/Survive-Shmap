@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2995510740879746053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.89, y: 1.165, z: 0}
+  m_LocalPosition: {x: 0.87, y: 1.165, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 7df5188cfaa705d4d84d15abba15b467, type: 2}
   projectile: {fileID: 7040162055225636606, guid: 7af3d3d39df519e4c95bd69253c53fc7, type: 3}
-  timeToNextAttack: 0
+  timeToNextAttack: 0.3800001

@@ -16,8 +16,10 @@ MonoBehaviour:
   description: 
   levelRequired: 1
   level: 1
-  improvmentType: 0
-  duration: 100
+  type: 0
+  duration: 5
   radius: 2
   hpGain: 0
   hpRegen: 0
+  cooldown: 5
+  activatingTime: 0.3
