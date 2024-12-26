@@ -70,11 +70,13 @@
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\RocketLauncherController.cs" />
     <Compile Include="Assets\Character\Scripts\Character.cs" />
     <Compile Include="Assets\Weapons\Scripts\Weapon.cs" />
+    <Compile Include="Assets\Perks\Increase All Damage\Scripts\IncreaseAllDMG.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerController.cs" />
     <Compile Include="Assets\Perks\Scripts\ParameterToUpgrade.cs" />
     <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovment.cs" />
     <Compile Include="Assets\Weapons\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerProjectile.cs" />
+    <Compile Include="Assets\Perks\Scripts\PerkController.cs" />
     <Compile Include="Assets\Perks\Scripts\Perk.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\ExplosiveProjectile.cs" />
     <Compile Include="Assets\Weapons\Scripts\Projectile.cs" />

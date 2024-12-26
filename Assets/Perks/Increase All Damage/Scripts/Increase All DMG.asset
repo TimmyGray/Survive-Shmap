@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7a45c1f79c1c9f44b27542ec51293b8, type: 3}
-  m_Name: Test Perk
+  m_Name: Increase All DMG
   m_EditorClassIdentifier: 
-  perkName: Increase DMG
+  perkName: Increase All DMG
   description: 
   levelRequired: 1
   level: 1
   upgradeParameters:
   - name: minDmg
-    value: 10%
-    type: percentage
+    value: 10
+    type: PERSANTAGE
   - name: maxDmg
-    value: 10%
-    type: percentage
-  perkIcon: {fileID: 0}
+    value: 10
+    type: PERSANTAGE
+  perkIcon: {fileID: -4576561951639842389, guid: bec5f7330f666504dbe6b9f5b9c86b9b, type: 3}
