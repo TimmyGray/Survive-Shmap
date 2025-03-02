@@ -215,22 +215,28 @@
 - Accuracy tracking
 - Speed run times
 
-Here are several enemy ideas, categorized for different challenge levels and roles:
+## Common Enemies
 
-Enemy Type	Description	Attack Patterns	Movement
-Scout Drone	Small, agile drone. Weak but numerous.	Single-shot laser.	Erratic, quick movements.
-Interceptor	Fast, maneuverable ship. Moderate threat.	Twin blasters, short bursts.	Weaving patterns, quick turns.
-Bomber	Slow, heavily armored ship. Drops explosive charges.	Large area-of-effect bombs.	Straightforward, predictable movement.
-Turret	Stationary defense platform. Heavy firepower.	Rapid laser fire, limited firing arc.	None, but can rotate to track the player.
-Mines	Stationary explosives. Detonate on proximity.	High damage explosion in a small radius.	None, but can be deployed in patterns.
+| Enemy Type | Description | Attack Patterns | Movement |
+| --- | --- | --- | --- |
+| **Scout Drone** | Small, agile drone. Weak but numerous. | Single-shot laser. | Erratic, quick movements. |
+| **Interceptor** | Fast, maneuverable ship. Moderate threat. | Twin blasters, short bursts. | Weaving patterns, quick turns. |
+| **Bomber** | Slow, heavily armored ship. Drops explosive charges. | Large area-of-effect bombs. | Straightforward, predictable movement. |
+| **Turret** | Stationary defense platform. Heavy firepower. | Rapid laser fire, limited firing arc. | None, but can rotate to track the player. |
+| **Mines** | Stationary explosives. Detonate on proximity. | High damage explosion in a small radius. | None, but can be deployed in patterns. |
 
-Enemy Type	Description	Special Abilities
-Bruiser	Heavily armored ship with powerful shields.	Ramming attack, shockwave blast.
-Specter	Fast, cloaking ship. Difficult to hit.	Short-range teleport, homing missiles.
-Overseer	Support ship that buffs other enemies.	Deploys shield drones, increases fire rate.
+## Elite Enemies (Mini-Bosses)
 
-Enemy Type	Description	Attack Patterns & Phases
-Dreadnought	Massive capital ship with overwhelming firepower.	Multiple weapon systems, shield regeneration, summons smaller ships.
-Leviathan	Gigantic serpentine creature native to the asteroid field.	Charges through the battlefield, spits projectiles, creates shockwaves by slamming into the arena walls.
-Void Ripper	Interdimensional entity capable of manipulating space-time.	Teleportation, energy projectiles, creates black holes that pull the player in.
+| Enemy Type | Description | Special Abilities |
+| --- | --- | --- |
+| **Bruiser** | Heavily armored ship with powerful shields. | Ramming attack, shockwave blast. |
+| **Specter** | Fast, cloaking ship. Difficult to hit. | Short-range teleport, homing missiles. |
+| **Overseer** | Support ship that buffs other enemies. | Deploys shield drones, increases fire rate. |
 
+## Boss Enemies (End-of-Session)
+
+| Enemy Type | Description | Attack Patterns & Phases |
+| --- | --- | --- |
+| **Dreadnought** | Massive capital ship with overwhelming firepower. | Multiple weapon systems, shield regeneration, summons smaller ships. |
+| **Leviathan** | Gigantic serpentine creature native to the asteroid field. | Charges through the battlefield, spits projectiles, creates shockwaves by slamming into the arena walls. |
+| **Void Ripper** | Interdimensional entity capable of manipulating space-time. | Teleportation, energy projectiles, creates black holes that pull the player in. |
