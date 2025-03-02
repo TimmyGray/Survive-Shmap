@@ -14,3 +14,14 @@ public enum PASSIVE_IMPROVMENT_TYPE
     HP_REGEN,
     MAX_HP,
 }
+
+public enum CHANGE_TYPE
+{
+    PERCENTAGE,
+}
+
+public enum CHANGE_DIRECTION
+{
+    INCREASE,
+    DECREASE
+}

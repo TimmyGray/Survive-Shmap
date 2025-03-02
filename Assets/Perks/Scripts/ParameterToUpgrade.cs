@@ -9,7 +9,7 @@ public class ParameterToUpgrade
 {
     public string name;
     public string value;
-    public string type;
+    public CHANGE_TYPE type;
 }
 
 

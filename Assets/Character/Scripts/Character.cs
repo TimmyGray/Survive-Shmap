@@ -24,6 +24,10 @@ public class Character : ScriptableObject
 
     public List<Perk> perks = new List<Perk>();
 
+
+
+
+    //test purposes
     public List<GameObject> allWeapons = new List<GameObject>();
     public List<GameObject> allPassiveImprovments = new List<GameObject>();
 }

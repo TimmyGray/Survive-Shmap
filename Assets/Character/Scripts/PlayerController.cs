@@ -229,12 +229,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-/// <summary>
-/// Currently, this fucntion required for the testing phase. 
-/// As we are adding new weapons and passive improvments to the game, 
-/// we need to reset the player's current weapons, passive improvments 
-/// and perks when the application quits.
-/// </summary>
+    /// <summary>
+    /// Add a perk to the player.
+    /// </summary>
+    /// <param name="perk">The perk to be added.</param>
+    public void AddPerk(GameObject perk)
+    {
+        PerkController newPerkController = perk.GetComponent<PerkController>();
+        newPerkController.ApplyPerk(player);
+        player.perks.Add(newPerkController.perk);
+    }
+
+    /// <summary>   
+    /// Remove a perk from the player.
+    /// </summary>
+    /// <param name="perk">The perk to be removed.</param>
+    public void RemovePerk(GameObject perk)
+    {
+        PerkController perkController = perk.GetComponent<PerkController>();
+        perkController.RemovePerk(player);
+        player.perks.Remove(perkController.perk);   
+    }
+        
+
+    /// <summary>
+    /// Get the player's current perks.
+    /// </summary>
+    public List<Perk> GetPerks()
+    {
+        return player.perks; 
+    }
+
+    /// <summary>
+    /// Currently, this fucntion required for the testing phase. 
+    /// As we are adding new weapons and passive improvments to the game, 
+    /// we need to reset the player's current weapons, passive improvments 
+    /// and perks when the application quits.
+    /// </summary>
     public void OnApplicationQuit() 
     {  
         player.currentWeapons = new List<GameObject>();
