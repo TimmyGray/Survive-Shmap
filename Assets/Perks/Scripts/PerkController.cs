@@ -51,7 +51,7 @@ public abstract class PerkController : MonoBehaviour
     /// Upgrade a parameter according to the type
     /// </summary>
     /// <param name="upgradeParameter">The parameter to upgrade</param>
-    /// <param name="character">The character to upgrade</param>
+    /// <param name="character">The character whom the perk is applied</param>
     protected void ChangeParameter(ParameterToUpgrade upgradeParameter, Character character, CHANGE_DIRECTION direction)
     {
         switch (upgradeParameter.type)
