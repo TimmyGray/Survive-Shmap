@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Survive Shmap.sln"
+    "dotnet.defaultSolution": "Survive-Shmap.sln"
 }

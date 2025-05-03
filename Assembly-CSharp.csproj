@@ -59,21 +59,27 @@
     <UnityVersion>6000.0.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Timmy\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.4\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.24f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.24f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.24f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\FrameController.cs" />
     <Compile Include="Assets\Passive Improvments\Shield\Scripts\ShieldController.cs" />
     <Compile Include="Assets\Character\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\RocketLauncherController.cs" />
     <Compile Include="Assets\Character\Scripts\Character.cs" />
     <Compile Include="Assets\Weapons\Scripts\Weapon.cs" />
     <Compile Include="Assets\Perks\Increase All Damage\Scripts\IncreaseAllDMG.cs" />
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\ships\BaseBulletStarter.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerController.cs" />
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\ships\ExplosionController.cs" />
     <Compile Include="Assets\Perks\Scripts\ParameterToUpgrade.cs" />
+    <Compile Include="Assets\Enemies\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\SceneController.cs" />
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\Tools.cs" />
     <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovment.cs" />
+    <Compile Include="Assets\Enemies\Scripts\Enemy.cs" />
     <Compile Include="Assets\Weapons\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerProjectile.cs" />
     <Compile Include="Assets\Perks\Scripts\PerkController.cs" />
@@ -82,6 +88,7 @@
     <Compile Include="Assets\Weapons\Scripts\Projectile.cs" />
     <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovmentController.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\PlasmaProjectile.cs" />
+    <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\BaseFrameController.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\BlasterController.cs" />
     <Compile Include="Assets\Scripts\Utils.cs" />
   </ItemGroup>

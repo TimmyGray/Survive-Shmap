@@ -6,7 +6,7 @@ using PassiveImprovments;
 [CreateAssetMenu(fileName = "Character", menuName = "Scriptable Objects/Character")]
 public class Character : ScriptableObject
 {
-    public string characterName = "Player";
+    public string Name = "Player";
 
     public float currentHealth = 100f;
     public float maxHealth = 100f;
