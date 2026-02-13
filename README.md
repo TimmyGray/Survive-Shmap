@@ -2,6 +2,42 @@
 
 # Shoot 'em All - MVP Description
 
+## Practical Scope Recommendation (for a first playable build)
+
+To keep development realistic and shippable, split work into three milestones:
+
+1. **M1 - Playable Core (1-2 weeks)**
+   - One player ship, one weapon (Blaster), and 2 enemy types
+   - Survive loop with spawning, collisions, HP, death, and restart
+   - Basic XP gain and 3 level-up choices
+
+2. **M2 - Retention Layer (1-2 weeks)**
+   - Add 2 more weapons from the current list
+   - Add one mini-boss and one simple meta currency upgrade
+   - Add settings (audio, controls) and save/load for upgrades
+
+3. **M3 - Polish + Validation (1 week)**
+   - Visual/audio feedback pass (hit flash, simple particles, SFX)
+   - Balance pass (enemy HP/speed curves, weapon tuning)
+   - Small playtest and bug-fix sprint
+
+### What to postpone until after MVP
+
+Move these ideas to a post-launch backlog so they don't block release:
+- Story mode, weekly events, community events
+- Companion/drone system
+- Dynamic environment hazards (solar flares, gravity wells)
+- Deep achievement + leaderboard ecosystem
+- Multiple ship classes with unique skill trees
+
+### Success criteria for MVP
+
+- New player can start a run in **under 20 seconds**
+- Stable 10-minute run with no game-breaking bugs
+- At least 1 meaningful build decision every 2-3 levels
+- Clear death summary screen with XP/Gold earned
+- Consistent performance on target hardware (define FPS target)
+
 ## Core Gameplay
 
 ### Basic Mechanics
