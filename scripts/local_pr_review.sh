@@ -192,12 +192,8 @@ check_ai_review() {
         check_ai_review_with_ollama
       fi
       ;;
-    none)
-      echo "AI review disabled via AI_REVIEW_PROVIDER=none."
-      return 0
-      ;;
     *)
-      echo "Unknown AI_REVIEW_PROVIDER '$provider'. Use: auto | openrouter | ollama | none"
+      echo "Unknown AI_REVIEW_PROVIDER '$provider'. Use: auto | openrouter | ollama"
       return 1
       ;;
   esac

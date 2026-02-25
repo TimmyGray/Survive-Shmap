@@ -340,16 +340,3 @@ AI_REVIEW_PROVIDER=ollama OLLAMA_REVIEW_MODEL=llama3.1:8b ./scripts/local_pr_rev
 ```
 
 If the selected provider is not available (missing key/tools/model), the script still passes core checks and reports a warning.
-
-### 4) GitHub Action on PR creation/update
-
-This repo also includes a CI workflow at `.github/workflows/pr-review.yml` that runs on PR events (`opened`, `reopened`, `synchronize`, `ready_for_review`).
-
-It runs:
-
-```bash
-./scripts/local_pr_review.sh "origin/<base-branch>"
-```
-
-By default, AI review is disabled in CI (`AI_REVIEW_PROVIDER=none`) for deterministic checks.
-If you want OpenRouter in CI, set `AI_REVIEW_PROVIDER=openrouter` in the workflow and add repository secret `OPENROUTER_API_KEY`.
