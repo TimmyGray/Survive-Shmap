@@ -3,12 +3,18 @@ using Weapons;
 
 public abstract class EnemyController : MonoBehaviour
 {
-    public Enemy enemyData;
+    [SerializeField]
+    protected Enemy enemy;
+
+    protected float currentHealth;
+    protected int level = 1;
     protected Rigidbody2D myRigidbody2D;
 
-    protected virtual void Awake()
+    public virtual void Initialize(int? level = null)
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
+        currentHealth = enemy.MaxHealth(level ?? this.level);
+        this.level = level ?? this.level;
     }
 
     /// <summary>
@@ -26,8 +32,8 @@ public abstract class EnemyController : MonoBehaviour
     /// </summary>
     public virtual void TakeDamage(float amount)
     {
-        enemyData.currentHealth -= amount;
-        if (enemyData.currentHealth <= 0)
+        currentHealth -= amount;
+        if (currentHealth <= 0)
         {
             Die();
         }

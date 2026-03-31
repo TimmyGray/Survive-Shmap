@@ -1,13 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
+using PassiveImprovments;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections.Generic;
 using Weapons;
-using PassiveImprovments;
 
 public class PlayerController : MonoBehaviour
 {
-    public Character player; 
+    public Character player;
 
     private Rigidbody2D myRigidbody2D;
 
@@ -24,20 +24,22 @@ public class PlayerController : MonoBehaviour
         // Only for the testing phase
         foreach (GameObject weapon in player.allWeapons)
         {
-            ChangeWeapon(Instantiate(weapon, transform.position, Quaternion.identity));
+            // ChangeWeapon(Instantiate(weapon, transform.position, Quaternion.identity));
         }
 
         // Initialize the player's current passive improvments
         // Only for the testing phase
         foreach (GameObject passiveImprovment in player.allPassiveImprovments)
         {
-            ChangePassiveImprovment(Instantiate(passiveImprovment, transform.position, Quaternion.identity));
+            ChangePassiveImprovment(
+                Instantiate(passiveImprovment, transform.position, Quaternion.identity)
+            );
         }
     }
 
     private void FixedUpdate()
     {
-        if (isMoving) 
+        if (isMoving)
         {
             Moving();
         }
@@ -66,7 +68,9 @@ public class PlayerController : MonoBehaviour
     {
         foreach (GameObject weapon in player.currentWeapons)
         {
-            bool isWeaponExist = weapon.TryGetComponent<WeaponController>(out WeaponController weaponController);
+            bool isWeaponExist = weapon.TryGetComponent<WeaponController>(
+                out WeaponController weaponController
+            );
             if (isWeaponExist && weaponController.timeToNextAttack <= 0)
             {
                 weaponController.Fire();
@@ -83,11 +87,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Moving()
     {
-        myRigidbody2D.AddForce(new Vector2(moveDirection.x * player.speed, moveDirection.y * player.speed));
+        myRigidbody2D.AddForce(
+            new Vector2(moveDirection.x * player.speed, moveDirection.y * player.speed)
+        );
     }
 
-
-    public void LevelUp(){}
+    public void LevelUp() { }
 
     /// <summary>
     /// Change the player's current weapon. Add, Change or Level up the weapon depending on the situation.
@@ -97,14 +102,14 @@ public class PlayerController : MonoBehaviour
     /// <param name="index">The index of the weapon to be changed. If null, the weapon will be added to the player's current weapons or level up if the weapon is already in the player's current weapons.</param>
     public void ChangeWeapon(GameObject weapon, int? index = null)
     {
-        if(player.currentWeapons.Count==0)
+        if (player.currentWeapons.Count == 0)
         {
             SetWeaponPosition(weapon);
             player.currentWeapons.Add(weapon);
         }
         else
         {
-            switch(index.HasValue)
+            switch (index.HasValue)
             {
                 case true:
                 {
@@ -115,11 +120,15 @@ public class PlayerController : MonoBehaviour
                 case false:
                 {
                     WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
-                    GameObject oldWeapon = player.currentWeapons.Find(oldWeapon => oldWeapon.GetComponent<WeaponController>().weapon.type == newWeaponController.weapon.type);
+                    GameObject oldWeapon = player.currentWeapons.Find(oldWeapon =>
+                        oldWeapon.GetComponent<WeaponController>().weapon.type
+                        == newWeaponController.weapon.type
+                    );
                     if (oldWeapon != null)
                     {
-                        WeaponController oldWeaponController = oldWeapon.GetComponent<WeaponController>();
-                        oldWeaponController.LevelUp();                        
+                        WeaponController oldWeaponController =
+                            oldWeapon.GetComponent<WeaponController>();
+                        oldWeaponController.LevelUp();
                     }
                     else
                     {
@@ -138,7 +147,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="weapon">The weapon to be set.</param>
     private void SetWeaponPosition(GameObject weapon)
     {
-        switch(weapon.GetComponent<WeaponController>().weapon.type)
+        switch (weapon?.GetComponent<WeaponController>()?.weapon.type ?? WEAPON_TYPE.DEFAULT)
         {
             case WEAPON_TYPE.PLASMA:
             {
@@ -168,6 +177,9 @@ public class PlayerController : MonoBehaviour
                 weapon.transform.parent = firstWeapon;
                 break;
             }
+
+            default:
+                break;
         }
     }
 
@@ -190,10 +202,16 @@ public class PlayerController : MonoBehaviour
     /// <param name="index">The index of the passive improvment to be changed. If null, the passive improvment will be added to the player's current passive improvments or level up if the passive improvment is already in the player's current passive improvments.</param>
     public void ChangePassiveImprovment(GameObject passiveImprovment, int? index = null)
     {
-        PassiveImprovmentController newPassiveImprovmentController = passiveImprovment.GetComponent<PassiveImprovmentController>();
-        GameObject oldPassiveImprovment = player.currentPassiveImprovments.Find(oldPassiveImprovment => oldPassiveImprovment.GetComponent<PassiveImprovmentController>().passiveImprovment.type == newPassiveImprovmentController.passiveImprovment.type);
+        PassiveImprovmentController newPassiveImprovmentController =
+            passiveImprovment.GetComponent<PassiveImprovmentController>();
+        GameObject oldPassiveImprovment = player.currentPassiveImprovments.Find(
+            oldPassiveImprovment =>
+                oldPassiveImprovment
+                    .GetComponent<PassiveImprovmentController>()
+                    .passiveImprovment.type == newPassiveImprovmentController.passiveImprovment.type
+        );
 
-        if(player.currentPassiveImprovments.Count==0)
+        if (player.currentPassiveImprovments.Count == 0)
         {
             SetPassiveImprovmentPosition(passiveImprovment);
             player.currentPassiveImprovments.Add(passiveImprovment);
@@ -201,11 +219,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            switch(index.HasValue)
+            switch (index.HasValue)
             {
                 case true:
                 {
-                    oldPassiveImprovment.GetComponent<PassiveImprovmentController>().Deactivate(true);
+                    oldPassiveImprovment
+                        .GetComponent<PassiveImprovmentController>()
+                        .Deactivate(true);
                     SetPassiveImprovmentPosition(passiveImprovment);
                     player.currentPassiveImprovments[index.Value] = passiveImprovment;
                     newPassiveImprovmentController.Activate();
@@ -240,7 +260,7 @@ public class PlayerController : MonoBehaviour
         player.perks.Add(newPerkController.perk);
     }
 
-    /// <summary>   
+    /// <summary>
     /// Remove a perk from the player.
     /// </summary>
     /// <param name="perk">The perk to be removed.</param>
@@ -248,26 +268,25 @@ public class PlayerController : MonoBehaviour
     {
         PerkController perkController = perk.GetComponent<PerkController>();
         perkController.RemovePerk(player);
-        player.perks.Remove(perkController.perk);   
+        player.perks.Remove(perkController.perk);
     }
-        
 
     /// <summary>
     /// Get the player's current perks.
     /// </summary>
     public List<Perk> GetPerks()
     {
-        return player.perks; 
+        return player.perks;
     }
 
     /// <summary>
-    /// Currently, this fucntion required for the testing phase. 
-    /// As we are adding new weapons and passive improvments to the game, 
-    /// we need to reset the player's current weapons, passive improvments 
+    /// Currently, this fucntion required for the testing phase.
+    /// As we are adding new weapons and passive improvments to the game,
+    /// we need to reset the player's current weapons, passive improvments
     /// and perks when the application quits.
     /// </summary>
-    public void OnApplicationQuit() 
-    {  
+    public void OnApplicationQuit()
+    {
         player.currentWeapons = new List<GameObject>();
         player.currentPassiveImprovments = new List<GameObject>();
         player.perks = new List<Perk>();

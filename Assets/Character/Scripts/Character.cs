@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using PassiveImprovments;
 using TreeEditor;
 using UnityEngine;
-using PassiveImprovments;
 
 [CreateAssetMenu(fileName = "Character", menuName = "Scriptable Objects/Character")]
 public class Character : ScriptableObject
@@ -23,9 +23,6 @@ public class Character : ScriptableObject
     public List<GameObject> currentPassiveImprovments = new List<GameObject>();
 
     public List<Perk> perks = new List<Perk>();
-
-
-
 
     //test purposes
     public List<GameObject> allWeapons = new List<GameObject>();
