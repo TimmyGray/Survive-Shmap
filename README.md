@@ -2,6 +2,42 @@
 
 # Shoot 'em All - MVP Description
 
+## Practical Scope Recommendation (for a first playable build)
+
+To keep development realistic and shippable, split work into three milestones:
+
+1. **M1 - Playable Core (1-2 weeks)**
+   - One player ship, one weapon (Blaster), and 2 enemy types
+   - Survive loop with spawning, collisions, HP, death, and restart
+   - Basic XP gain and 3 level-up choices
+
+2. **M2 - Retention Layer (1-2 weeks)**
+   - Add 2 more weapons from the current list
+   - Add one mini-boss and one simple meta currency upgrade
+   - Add settings (audio, controls) and save/load for upgrades
+
+3. **M3 - Polish + Validation (1 week)**
+   - Visual/audio feedback pass (hit flash, simple particles, SFX)
+   - Balance pass (enemy HP/speed curves, weapon tuning)
+   - Small playtest and bug-fix sprint
+
+### What to postpone until after MVP
+
+Move these ideas to a post-launch backlog so they don't block release:
+- Story mode, weekly events, community events
+- Companion/drone system
+- Dynamic environment hazards (solar flares, gravity wells)
+- Deep achievement + leaderboard ecosystem
+- Multiple ship classes with unique skill trees
+
+### Success criteria for MVP
+
+- New player can start a run in **under 20 seconds**
+- Stable 10-minute run with no game-breaking bugs
+- At least 1 meaningful build decision every 2-3 levels
+- Clear death summary screen with XP/Gold earned
+- Consistent performance on target hardware (define FPS target)
+
 ## Core Gameplay
 
 ### Basic Mechanics
@@ -240,3 +276,67 @@
 | **Dreadnought** | Massive capital ship with overwhelming firepower. | Multiple weapon systems, shield regeneration, summons smaller ships. |
 | **Leviathan** | Gigantic serpentine creature native to the asteroid field. | Charges through the battlefield, spits projectiles, creates shockwaves by slamming into the arena walls. |
 | **Void Ripper** | Interdimensional entity capable of manipulating space-time. | Teleportation, energy projectiles, creates black holes that pull the player in. |
+
+## Local automatic PR reviewer
+
+If you want PR-style review before code leaves your machine, this repo now includes a local reviewer script and an optional pre-push git hook.
+
+### 1) Install the hook once
+
+```bash
+./scripts/install_hooks.sh
+```
+
+This sets `core.hooksPath` to `.githooks`, so every `git push` runs the local reviewer automatically.
+
+### 2) Run the reviewer manually (optional)
+
+```bash
+./scripts/local_pr_review.sh
+```
+
+By default it compares your current branch against `origin/main` and checks:
+
+- merge conflict markers in the diff
+- patch sanity (`git diff --check`)
+- obvious leftover debug logs in changed `.cs` files (`Debug.Log`, `Console.WriteLine`)
+- optional AI review (OpenRouter or Ollama, warning-only if unavailable)
+
+You can pass a different base ref:
+
+```bash
+./scripts/local_pr_review.sh origin/develop
+```
+
+### 3) Optional AI reviewer (OpenRouter or Ollama)
+
+The script supports two providers:
+
+- **OpenRouter** (recommended when you have an API key)
+- **Ollama** (fully local)
+
+By default (`AI_REVIEW_PROVIDER=auto`), it uses OpenRouter if `OPENROUTER_API_KEY` is set; otherwise it falls back to Ollama.
+
+#### OpenRouter setup
+
+```bash
+export OPENROUTER_API_KEY=<your_key>
+export OPENROUTER_MODEL=openai/gpt-4o-mini
+./scripts/local_pr_review.sh
+```
+
+Optional metadata headers:
+
+```bash
+export OPENROUTER_SITE_URL=https://github.com/your-org/your-repo
+export OPENROUTER_SITE_NAME=survive-shmap-local-review
+```
+
+#### Ollama setup
+
+```bash
+ollama pull llama3.1:8b
+AI_REVIEW_PROVIDER=ollama OLLAMA_REVIEW_MODEL=llama3.1:8b ./scripts/local_pr_review.sh
+```
+
+If the selected provider is not available (missing key/tools/model), the script still passes core checks and reports a warning.
