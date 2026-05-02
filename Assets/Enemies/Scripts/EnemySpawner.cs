@@ -488,9 +488,9 @@ public class EnemySpawner : MonoBehaviour
         Vector2 basePosition = spawnData.spawnPositionType switch
         {
             SpawnPositionType.RightEdge => GetEdgePosition(0, camPos, camWidth, camHeight),
-            SpawnPositionType.TopEdge => GetEdgePosition(1, camPos, camWidth, camHeight),
-            SpawnPositionType.BottomEdge => GetEdgePosition(2, camPos, camWidth, camHeight),
-            SpawnPositionType.RandomEdge => GetRandomEdgePosition(camPos, camWidth, camHeight),
+            SpawnPositionType.RightEdgeTop => GetEdgePosition(1, camPos, camWidth, camHeight),
+            SpawnPositionType.RightEdgeBottom => GetEdgePosition(2, camPos, camWidth, camHeight),
+            SpawnPositionType.RandomRightEdge => GetRandomEdgePosition(camPos, camWidth, camHeight),
 
             // Default case (should never happen, but safety fallback)
             _ => Vector2.zero,
@@ -502,7 +502,7 @@ public class EnemySpawner : MonoBehaviour
 
     /// <summary>
     /// Randomly selects one of the three spawn edges (right, top, bottom) and returns a position on it.
-    /// Used when spawnPositionType is RandomEdge to add variety to spawn locations.
+    /// Used when spawnPositionType is RandomRightEdge to add variety to spawn locations.
     ///
     /// HOW IT WORKS:
     /// Randomly picks edge number 0, 1, or 2, then calls GetEdgePosition() with that edge.

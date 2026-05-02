@@ -11,7 +11,7 @@ public class ScoutDrone : EnemyController
     private float verticalOffset; // Random vertical offset
     private bool initialized = false;
 
-    protected override void Initialize(int? level = null)
+    internal override void Initialize(int? level = null)
     {
         base.Initialize(level);
         InitializeEllipse();

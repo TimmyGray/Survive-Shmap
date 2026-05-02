@@ -10,7 +10,7 @@ public abstract class EnemyController : MonoBehaviour
     protected int level = 1;
     protected Rigidbody2D myRigidbody2D;
 
-    public virtual void Initialize(int? level = null)
+    internal virtual void Initialize(int? level = null)
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         currentHealth = enemy.MaxHealth(level ?? this.level);
