@@ -1,11 +1,9 @@
-using UnityEngine;
-
 public enum WEAPON_TYPE
 {
     EXPLOSIVE,
     LASER,
     PLASMA,
-    DEFAULT
+    DEFAULT,
 }
 
 public enum PASSIVE_IMPROVMENT_TYPE
@@ -23,5 +21,5 @@ public enum CHANGE_TYPE
 public enum CHANGE_DIRECTION
 {
     INCREASE,
-    DECREASE
+    DECREASE,
 }

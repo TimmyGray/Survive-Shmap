@@ -2,75 +2,67 @@ using UnityEngine;
 
 public class ScoutDrone : EnemyController
 {
-    // Ellipse parameters
-    private float ellipseA; // Horizontal radius
-    private float ellipseB; // Vertical radius
-    private float ellipseAngle; // Current angle (0 to pi)
-    private float ellipseSpeed; // How fast to move along the ellipse
-    private Vector2 ellipseCenter; // Center of the ellipse
-    private float verticalOffset; // Random vertical offset
-    private bool initialized = false;
+    private float startX;
+    private float startY;
+    private float horizontalTravel;
+    private float bumpHeight;
+    private int dirSign;
+    private float tPerSecond;
+    private float t;
+
+    private void Awake()
+    {
+        enabled = false;
+    }
 
     internal override void Initialize(int? level = null)
     {
         base.Initialize(level);
-        InitializeEllipse();
-    }
 
-    /// <summary>
-    /// Initialize the ellipse parameters for the drone movement
-    /// </summary>
-    private void InitializeEllipse()
-    {
-        // Set ellipse radii randomly within a range (for individual drones)
-        ellipseA = Random.Range(3f, 7f); // Horizontal radius
-        ellipseB = Random.Range(1f, 3f); // Vertical radius
-        ellipseAngle = 0f;
-        ellipseSpeed = Random.Range(0.7f, 1.2f) * enemy.Speed(level);
-        // Start at right edge of the screen
-        float camHeight = 2f * Camera.main.orthographicSize;
-        float camWidth = camHeight * Camera.main.aspect;
-        float startY = Random.Range(-camHeight / 2f + 1f, camHeight / 2f - 1f);
-        ellipseCenter = new Vector2(
-            Camera.main.transform.position.x + camWidth / 2f - ellipseA,
-            startY
-        );
-        verticalOffset = startY;
+        Camera cam = Camera.main;
+        float camHalfHeight = cam.orthographicSize;
+        float camHalfWidth = camHalfHeight * cam.aspect;
+        float camTop = cam.transform.position.y + camHalfHeight;
+        float camBot = cam.transform.position.y - camHalfHeight;
+        float camLeft = cam.transform.position.x - camHalfWidth;
 
-        initialized = true;
-        // Set initial position
-        SetPositionOnEllipse();
+        startX = transform.position.x;
+        startY = transform.position.y;
+
+        horizontalTravel = startX - camLeft + 1f;
+        bumpHeight = Random.Range(1f, camHalfHeight * 0.8f);
+
+        if (startY + bumpHeight > camTop)
+            dirSign = -1;
+        else if (startY - bumpHeight < camBot)
+            dirSign = 1;
+        else
+            dirSign = Random.value < 0.5f ? -1 : 1;
+
+        float speed = Random.Range(0.7f, 1.2f) * enemy.Speed(this.level);
+        tPerSecond = speed / horizontalTravel;
+        t = 0f;
+
+        enabled = true;
     }
 
     private void Update()
     {
-        if (!initialized)
-            return;
-        ellipseAngle += ellipseSpeed * Time.deltaTime / ellipseA; // Normalize speed by horizontal radius
-        if (ellipseAngle > Mathf.PI) // Only half ellipse
+        t += tPerSecond * Time.deltaTime;
+        if (t >= 1f)
         {
             Destroy(gameObject);
             return;
         }
-        SetPositionOnEllipse();
-    }
 
-    private void SetPositionOnEllipse()
-    {
-        float x = ellipseCenter.x - ellipseA * Mathf.Cos(ellipseAngle);
-        float y = ellipseCenter.y + ellipseB * Mathf.Sin(ellipseAngle);
+        float x = startX - horizontalTravel * t;
+        float y = startY + dirSign * bumpHeight * Mathf.Sin(Mathf.PI * t);
         transform.position = new Vector2(x, y);
     }
 
-    public override void Move(Vector2 direction)
-    {
-        // Movement is handled in Update() along the ellipse
-    }
+    public override void Move(Vector2 direction) { }
 
-    public override void Fire()
-    {
-        // TODO: Implement firing logic if needed
-    }
+    public override void Fire() { }
 
     protected override void Die()
     {
