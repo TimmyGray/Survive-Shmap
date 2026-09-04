@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     public Character player;
 
+    private InputAction moveAction;
+
     private Rigidbody2D myRigidbody2D;
 
     private bool isMoving = false;
@@ -19,6 +21,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
+
+        moveAction = InputSystem.actions.FindAction("Move");
 
         // Initialize the player's current weapons
         // Only for the testing phase
@@ -39,26 +43,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isMoving)
-        {
-            Moving();
-        }
+        Moving();
 
         Fire();
-    }
-
-    public void OnMove(InputValue moveValue)
-    {
-        moveDirection = moveValue.Get<Vector2>().normalized;
-
-        if (Mathf.Abs(moveDirection.magnitude) > 0)
-        {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
-        }
     }
 
     /// <summary>
@@ -87,6 +74,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Moving()
     {
+        moveDirection = moveAction.ReadValue<Vector2>().normalized;
+
+        isMoving = Mathf.Abs(moveDirection.magnitude) > 0;
+
         myRigidbody2D.AddForce(
             new Vector2(moveDirection.x * player.speed, moveDirection.y * player.speed)
         );
@@ -112,31 +103,31 @@ public class PlayerController : MonoBehaviour
             switch (index.HasValue)
             {
                 case true:
-                {
-                    SetWeaponPosition(weapon);
-                    player.currentWeapons[index.Value] = weapon;
-                    break;
-                }
-                case false:
-                {
-                    WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
-                    GameObject oldWeapon = player.currentWeapons.Find(oldWeapon =>
-                        oldWeapon.GetComponent<WeaponController>().weapon.type
-                        == newWeaponController.weapon.type
-                    );
-                    if (oldWeapon != null)
-                    {
-                        WeaponController oldWeaponController =
-                            oldWeapon.GetComponent<WeaponController>();
-                        oldWeaponController.LevelUp();
-                    }
-                    else
                     {
                         SetWeaponPosition(weapon);
-                        player.currentWeapons.Add(weapon);
+                        player.currentWeapons[index.Value] = weapon;
+                        break;
                     }
-                    break;
-                }
+                case false:
+                    {
+                        WeaponController newWeaponController = weapon.GetComponent<WeaponController>();
+                        GameObject oldWeapon = player.currentWeapons.Find(oldWeapon =>
+                            oldWeapon.GetComponent<WeaponController>().weapon.type
+                            == newWeaponController.weapon.type
+                        );
+                        if (oldWeapon != null)
+                        {
+                            WeaponController oldWeaponController =
+                                oldWeapon.GetComponent<WeaponController>();
+                            oldWeaponController.LevelUp();
+                        }
+                        else
+                        {
+                            SetWeaponPosition(weapon);
+                            player.currentWeapons.Add(weapon);
+                        }
+                        break;
+                    }
             }
         }
     }
@@ -150,33 +141,33 @@ public class PlayerController : MonoBehaviour
         switch (weapon?.GetComponent<WeaponController>()?.weapon.type ?? WEAPON_TYPE.DEFAULT)
         {
             case WEAPON_TYPE.PLASMA:
-            {
-                Transform firstWeapon = transform.Find("First Weapon");
-                weapon.transform.position = firstWeapon.position;
-                weapon.transform.parent = firstWeapon;
-                break;
-            }
+                {
+                    Transform firstWeapon = transform.Find("First Weapon");
+                    weapon.transform.position = firstWeapon.position;
+                    weapon.transform.parent = firstWeapon;
+                    break;
+                }
             case WEAPON_TYPE.LASER:
-            {
-                Transform secondWeapon = transform.Find("Second Weapon");
-                weapon.transform.position = secondWeapon.position;
-                weapon.transform.parent = secondWeapon;
-                break;
-            }
+                {
+                    Transform secondWeapon = transform.Find("Second Weapon");
+                    weapon.transform.position = secondWeapon.position;
+                    weapon.transform.parent = secondWeapon;
+                    break;
+                }
             case WEAPON_TYPE.EXPLOSIVE:
-            {
-                Transform thirdWeapon = transform.Find("Third Weapon");
-                weapon.transform.position = thirdWeapon.position;
-                weapon.transform.parent = thirdWeapon;
-                break;
-            }
+                {
+                    Transform thirdWeapon = transform.Find("Third Weapon");
+                    weapon.transform.position = thirdWeapon.position;
+                    weapon.transform.parent = thirdWeapon;
+                    break;
+                }
             case WEAPON_TYPE.DEFAULT:
-            {
-                Transform firstWeapon = transform.Find("First Weapon");
-                weapon.transform.position = firstWeapon.position;
-                weapon.transform.parent = firstWeapon;
-                break;
-            }
+                {
+                    Transform firstWeapon = transform.Find("First Weapon");
+                    weapon.transform.position = firstWeapon.position;
+                    weapon.transform.parent = firstWeapon;
+                    break;
+                }
 
             default:
                 break;
@@ -222,29 +213,29 @@ public class PlayerController : MonoBehaviour
             switch (index.HasValue)
             {
                 case true:
-                {
-                    oldPassiveImprovment
-                        .GetComponent<PassiveImprovmentController>()
-                        .Deactivate(true);
-                    SetPassiveImprovmentPosition(passiveImprovment);
-                    player.currentPassiveImprovments[index.Value] = passiveImprovment;
-                    newPassiveImprovmentController.Activate();
-                    break;
-                }
-                case false:
-                {
-                    if (oldPassiveImprovment != null)
                     {
-                        oldPassiveImprovment.GetComponent<PassiveImprovmentController>().LevelUp();
-                    }
-                    else
-                    {
+                        oldPassiveImprovment
+                            .GetComponent<PassiveImprovmentController>()
+                            .Deactivate(true);
                         SetPassiveImprovmentPosition(passiveImprovment);
-                        player.currentPassiveImprovments.Add(passiveImprovment);
+                        player.currentPassiveImprovments[index.Value] = passiveImprovment;
                         newPassiveImprovmentController.Activate();
+                        break;
                     }
-                    break;
-                }
+                case false:
+                    {
+                        if (oldPassiveImprovment != null)
+                        {
+                            oldPassiveImprovment.GetComponent<PassiveImprovmentController>().LevelUp();
+                        }
+                        else
+                        {
+                            SetPassiveImprovmentPosition(passiveImprovment);
+                            player.currentPassiveImprovments.Add(passiveImprovment);
+                            newPassiveImprovmentController.Activate();
+                        }
+                        break;
+                    }
             }
         }
     }
