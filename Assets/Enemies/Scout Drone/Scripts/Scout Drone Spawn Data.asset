@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef80d8c4994ff64e83e5500a3d2a90d, type: 3}
+  m_Name: Scout Drone Spawn Data
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnData
+  enemyPrefab: {fileID: 1860216000438256891, guid: 035eed2fc3ac3d1489f1fe79c3b9e116, type: 3}
+  spawnCooldown: 5
+  spawnCooldownVariation: 1
+  initialDelay: 0
+  maxAliveAtOnce: 15
+  totalSpawnsAllowed: 60
+  minGameTime: 0
+  baseLevel: 1
+  spawnPositionType: 0
+  positionOffset: {x: 0, y: 0}

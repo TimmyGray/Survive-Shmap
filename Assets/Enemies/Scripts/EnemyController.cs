@@ -5,22 +5,22 @@ public abstract class EnemyController : MonoBehaviour
 {
     [SerializeField]
     protected Enemy enemy;
-
     protected float currentHealth;
     protected int level = 1;
     protected Rigidbody2D myRigidbody2D;
 
-    internal virtual void Initialize(int? level = null)
+    internal virtual void Initialize(EnemyInitializeSettings initializeSettings)
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
-        currentHealth = enemy.MaxHealth(level ?? this.level);
-        this.level = level ?? this.level;
+        currentHealth = enemy.MaxHealth(initializeSettings.level ?? level);
+        level = initializeSettings.level ?? level;
+        Debug.Log($"Enemy initialized with level {level} and health {currentHealth}");
     }
 
     /// <summary>
     /// Move the enemy. Direction and logic to be defined in derived classes.
     /// </summary>
-    public abstract void Move(Vector2 direction);
+    public abstract void Move();
 
     /// <summary>
     /// Fire the enemy's weapon(s). Logic to be defined in derived classes.

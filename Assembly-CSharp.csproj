@@ -53,6 +53,7 @@
     <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\FrameController.cs" />
     <Compile Include="Assets\Passive Improvments\Shield\Scripts\ShieldController.cs" />
     <Compile Include="Assets\Character\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Types.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\RocketLauncherController.cs" />
     <Compile Include="Assets\Character\Scripts\Character.cs" />
     <Compile Include="Assets\Weapons\Scripts\Weapon.cs" />
@@ -73,12 +74,12 @@
     <Compile Include="Assets\Perks\Scripts\Perk.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\ExplosiveProjectile.cs" />
     <Compile Include="Assets\Enemies\Scout Drone\Scripts\ScoutDrone.cs" />
+    <Compile Include="Assets\Scripts\Enums.cs" />
     <Compile Include="Assets\Weapons\Scripts\Projectile.cs" />
     <Compile Include="Assets\Passive Improvments\Scripts\PassiveImprovmentController.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\PlasmaProjectile.cs" />
     <Compile Include="Assets\2D Pixel Spaceships (2 Small Ships + Explosions)\Scripts\BaseFrameController.cs" />
     <Compile Include="Assets\Weapons\Blaster\Scripts\BlasterController.cs" />
-    <Compile Include="Assets\Scripts\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

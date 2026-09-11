@@ -193,6 +193,7 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        Debug.Log("Enemy Swawner is awake");
         mainCamera = Camera.main;
         InitializeSpawnTrackers();
     }
@@ -428,7 +429,7 @@ public class EnemySpawner : MonoBehaviour
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
         if (enemyController != null)
         {
-            enemyController.Initialize(spawnData.baseLevel);
+            enemyController.Initialize(new EnemyInitializeSettings(spawnData.baseLevel));
         }
 
         // Track this enemy so we know it's alive
@@ -488,10 +489,6 @@ public class EnemySpawner : MonoBehaviour
         Vector2 basePosition = spawnData.spawnPositionType switch
         {
             SpawnPositionType.RightEdge => GetEdgePosition(0, camPos, camWidth, camHeight),
-            SpawnPositionType.RightEdgeTop => GetEdgePosition(1, camPos, camWidth, camHeight),
-            SpawnPositionType.RightEdgeBottom => GetEdgePosition(2, camPos, camWidth, camHeight),
-            SpawnPositionType.RandomRightEdge => GetRandomEdgePosition(camPos, camWidth, camHeight),
-
             // Default case (should never happen, but safety fallback)
             _ => Vector2.zero,
         };

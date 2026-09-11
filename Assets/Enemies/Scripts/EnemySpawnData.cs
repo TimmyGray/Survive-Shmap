@@ -182,38 +182,7 @@ public class EnemySpawnData : ScriptableObject
     }
 }
 
-/// <summary>
-/// Defines which edge of the screen enemies should spawn on.
-///
-/// WHY no LeftEdge?
-/// The game design assumes players shoot rightward. Spawning enemies on the left
-/// (behind the player) would be confusing and break immersion. Enemies should
-/// appear ahead of the player, not behind them.
-/// </summary>
 public enum SpawnPositionType
 {
-    /// <summary>
-    /// Spawn enemies on the right edge of the screen (most common).
-    /// Enemies appear from the right side and move left toward the player.
-    /// </summary>
     RightEdge,
-
-    /// <summary>
-    /// Spawn enemies on the top edge of the screen.
-    /// Enemies appear from above and move downward.
-    /// </summary>
-    RightEdgeTop,
-
-    /// <summary>
-    /// Spawn enemies on the bottom edge of the screen.
-    /// Enemies appear from below and move upward.
-    /// </summary>
-    RightEdgeBottom,
-
-    /// <summary>
-    /// Randomly choose one of the three edges (Right, Top, or Bottom) for each spawn.
-    /// Adds variety - enemies can come from different directions, making gameplay
-    /// more dynamic and less predictable.
-    /// </summary>
-    RandomRightEdge,
 }

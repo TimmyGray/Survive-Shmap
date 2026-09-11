@@ -20,6 +20,6 @@ public enum CHANGE_TYPE
 
 public enum CHANGE_DIRECTION
 {
-    INCREASE,
-    DECREASE,
+    INCREASE = 1,
+    DECREASE = -1,
 }

@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Scout Drone
   m_EditorClassIdentifier: 
   Name: Scout Drone
-  currentHealth: 10
   maxHealth: 10
   minDmg: 1
   maxDmg: 1
   speed: 5
-  level: 1
+  maxHealthIncreasePerLevel: 0.15
+  minDmgIncreasePerLevel: 0.1
+  maxDmgIncreasePerLevel: 0.1
+  speedIncreasePerLevel: 0.1
   currentWeapons: []
   currentPassiveImprovments: []
   perks: []

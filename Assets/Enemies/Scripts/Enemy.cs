@@ -13,8 +13,6 @@ public class Enemy : ScriptableObject
 
     public float speed = 10f;
 
-    public float spawnCooldown = 5f;
-
     [Tooltip("Stat percentage increase per level")]
     public float maxHealthIncreasePerLevel = 0.15f;
     public float minDmgIncreasePerLevel = 0.1f;
@@ -31,7 +29,7 @@ public class Enemy : ScriptableObject
 
     private float CalculateStat(float baseStat, float increasePerLevel, int level)
     {
-        return baseStat * (1 + increasePerLevel * level);
+        return baseStat * (1 + increasePerLevel * (level - 1));
     }
 
     public List<GameObject> currentWeapons = new List<GameObject>();

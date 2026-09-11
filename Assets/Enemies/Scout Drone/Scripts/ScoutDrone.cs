@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class ScoutDrone : EnemyController
 {
-    private float startX;
-    private float startY;
+    private Vector2 startPosition;
+    private Vector2 endPosition;
     private float horizontalTravel;
     private float bumpHeight;
-    private int dirSign;
-    private float tPerSecond;
-    private float t;
+    private CHANGE_DIRECTION dirSign;
+    private float progressPerSecond;
+    private float t = 0f;
 
     private void Awake()
     {
         enabled = false;
     }
 
-    internal override void Initialize(int? level = null)
+    internal override void Initialize(EnemyInitializeSettings initializeSettings)
     {
-        base.Initialize(level);
+        base.Initialize(initializeSettings);
 
         Camera cam = Camera.main;
         float camHalfHeight = cam.orthographicSize;
@@ -26,41 +26,48 @@ public class ScoutDrone : EnemyController
         float camBot = cam.transform.position.y - camHalfHeight;
         float camLeft = cam.transform.position.x - camHalfWidth;
 
-        startX = transform.position.x;
-        startY = transform.position.y;
-
-        horizontalTravel = startX - camLeft + 1f;
+        startPosition = transform.position;
+        endPosition = new Vector2(camLeft - 2, startPosition.y); // Move off-screen to the left
+        horizontalTravel = Mathf.Abs(endPosition.x - startPosition.x);
         bumpHeight = Random.Range(1f, camHalfHeight * 0.8f);
 
-        if (startY + bumpHeight > camTop)
-            dirSign = -1;
-        else if (startY - bumpHeight < camBot)
-            dirSign = 1;
+        if (startPosition.y + bumpHeight > camTop)
+            dirSign = CHANGE_DIRECTION.DECREASE;
+        else if (startPosition.y - bumpHeight < camBot)
+            dirSign = CHANGE_DIRECTION.INCREASE;
         else
-            dirSign = Random.value < 0.5f ? -1 : 1;
+            dirSign = Random.value < 0.5f ? CHANGE_DIRECTION.DECREASE : CHANGE_DIRECTION.INCREASE;
 
-        float speed = Random.Range(0.7f, 1.2f) * enemy.Speed(this.level);
-        tPerSecond = speed / horizontalTravel;
+        float speed = Random.Range(0.7f, 1.2f) * enemy.Speed(level);
+        progressPerSecond = speed / horizontalTravel;
         t = 0f;
 
         enabled = true;
+
+        Debug.Log($"ScoutDrone initialized with level {level}, health {currentHealth}, speed {speed}, bumpHeight {bumpHeight}, dirSign {dirSign}, progressPerSecond {progressPerSecond}, horizontalTravel {horizontalTravel}, starting position ({startPosition.x}, {startPosition.y}), ending position ({endPosition.x}, {endPosition.y})");
     }
 
-    private void Update()
+    void Update()
     {
-        t += tPerSecond * Time.deltaTime;
+        Move();
+    }
+
+    public override void Move()
+    {
+        t = Mathf.Min(t + progressPerSecond * Time.deltaTime, 1f);
+
+        // Always calculate from the original spawn position. Applying the total
+        // offset to transform.position every frame compounds the movement.
+        Vector2 position = Vector2.Lerp(startPosition, endPosition, t);
+        position.y += (int)dirSign * bumpHeight * Mathf.Sin(Mathf.PI * t);
+        transform.position = position;
+
         if (t >= 1f)
         {
+            Debug.Log("ScoutDrone has exited the screen and will be destroyed.");
             Destroy(gameObject);
-            return;
         }
-
-        float x = startX - horizontalTravel * t;
-        float y = startY + dirSign * bumpHeight * Mathf.Sin(Mathf.PI * t);
-        transform.position = new Vector2(x, y);
     }
-
-    public override void Move(Vector2 direction) { }
 
     public override void Fire() { }
 
