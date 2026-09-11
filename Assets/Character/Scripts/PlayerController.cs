@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private Rigidbody2D myRigidbody2D;
 
-    private bool isMoving = true;
-
     private float currentHealth;
 
     private Vector2 moveDirection;
@@ -27,7 +25,6 @@ public class PlayerController : MonoBehaviour, IDamageable
         moveAction = InputSystem.actions.FindAction("Move");
 
         currentHealth = player.maxHealth;
-        isMoving = true;
 
         // Initialize the player's current weapons
         // Only for the testing phase
@@ -49,10 +46,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void FixedUpdate()
     {
         Moving();
-        if (isMoving)
-        {
-
-        }
 
         Fire();
     }
@@ -84,8 +77,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Moving()
     {
         moveDirection = moveAction.ReadValue<Vector2>().normalized;
-
-        isMoving = Mathf.Abs(moveDirection.magnitude) > 0;
 
         myRigidbody2D.AddForce(
             new Vector2(moveDirection.x * player.speed, moveDirection.y * player.speed)
