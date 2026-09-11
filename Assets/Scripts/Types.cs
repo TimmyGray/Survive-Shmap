@@ -7,3 +7,8 @@ public struct EnemyInitializeSettings
         this.level = level;
     }
 }
+
+public interface IDamageable
+{
+    void TakeDamage(float damage);
+}

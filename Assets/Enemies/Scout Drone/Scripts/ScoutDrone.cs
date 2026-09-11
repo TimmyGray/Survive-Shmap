@@ -65,7 +65,7 @@ public class ScoutDrone : EnemyController
         if (t >= 1f)
         {
             Debug.Log("ScoutDrone has exited the screen and will be destroyed.");
-            Destroy(gameObject);
+            Die();
         }
     }
 

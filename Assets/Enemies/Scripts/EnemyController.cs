@@ -1,7 +1,7 @@
 using UnityEngine;
 using Weapons;
 
-public abstract class EnemyController : MonoBehaviour
+public abstract class EnemyController : MonoBehaviour, IDamageable
 {
     [SerializeField]
     protected Enemy enemy;
