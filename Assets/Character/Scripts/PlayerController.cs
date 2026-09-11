@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapons;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public Character player;
 
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D myRigidbody2D;
 
-    private bool isMoving = false;
+    private float currentHealth;
 
     private Vector2 moveDirection;
 
@@ -24,11 +24,13 @@ public class PlayerController : MonoBehaviour
 
         moveAction = InputSystem.actions.FindAction("Move");
 
+        currentHealth = player.maxHealth;
+
         // Initialize the player's current weapons
         // Only for the testing phase
         foreach (GameObject weapon in player.allWeapons)
         {
-            // ChangeWeapon(Instantiate(weapon, transform.position, Quaternion.identity));
+            ChangeWeapon(Instantiate(weapon, transform.position, Quaternion.identity));
         }
 
         // Initialize the player's current passive improvments
@@ -60,7 +62,7 @@ public class PlayerController : MonoBehaviour
             );
             if (isWeaponExist && weaponController.timeToNextAttack <= 0)
             {
-                weaponController.Fire();
+                weaponController.Fire(gameObject, player.maxDmg, player.minDmg);
             }
             else if (isWeaponExist)
             {
@@ -75,8 +77,6 @@ public class PlayerController : MonoBehaviour
     private void Moving()
     {
         moveDirection = moveAction.ReadValue<Vector2>().normalized;
-
-        isMoving = Mathf.Abs(moveDirection.magnitude) > 0;
 
         myRigidbody2D.AddForce(
             new Vector2(moveDirection.x * player.speed, moveDirection.y * player.speed)
@@ -281,5 +281,20 @@ public class PlayerController : MonoBehaviour
         player.currentWeapons = new List<GameObject>();
         player.currentPassiveImprovments = new List<GameObject>();
         player.perks = new List<Perk>();
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // Handle player death (e.g., show game over screen, restart level, etc.)
+        Debug.Log("Player has died.");
     }
 }

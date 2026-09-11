@@ -17,8 +17,8 @@ MonoBehaviour:
   levelRequired: 1
   level: 1
   type: 2
-  minDmg: 0
-  maxDmg: 0
+  minDmg: 2
+  maxDmg: 4
   numberOfProjectiles: 2
   projectileSpeed: 40
   attackCoolDown: 0.5
