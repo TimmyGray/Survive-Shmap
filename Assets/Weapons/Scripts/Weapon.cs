@@ -13,13 +13,13 @@ namespace Weapons
         public int level = 1;
         public WEAPON_TYPE type = WEAPON_TYPE.DEFAULT;
 
-        public float minDmg;
-        public float maxDmg;
+        public int minDmg;
+        public int maxDmg;
 
         public int numberOfProjectiles = 1;
         public int projectileSpeed = 1;
         public float attackCoolDown = 1f;
-        public float dmgRadius = 0f;
+        public int dmgRadius = 0;
     
         public bool isFlyingThrough = false;
 

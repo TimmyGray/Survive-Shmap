@@ -6,12 +6,12 @@ public class Enemy : ScriptableObject
 {
     [Header("Base stats")]
     public string Name = "Enemy";
-    public float maxHealth = 100f;
+    public int maxHealth = 100;
 
-    public float minDmg = 1f;
-    public float maxDmg = 2f;
+    public int minDmg = 1;
+    public int maxDmg = 2;
 
-    public float speed = 10f;
+    public int speed = 10;
 
     [Tooltip("Stat percentage increase per level")]
     public float maxHealthIncreasePerLevel = 0.15f;
@@ -19,17 +19,17 @@ public class Enemy : ScriptableObject
     public float maxDmgIncreasePerLevel = 0.1f;
     public float speedIncreasePerLevel = 0.1f;
 
-    public float MaxHealth(int level) => CalculateStat(maxHealth, maxHealthIncreasePerLevel, level);
+    public int MaxHealth(int level) => CalculateStat(maxHealth, maxHealthIncreasePerLevel, level);
 
-    public float MinDmg(int level) => CalculateStat(minDmg, minDmgIncreasePerLevel, level);
+    public int MinDmg(int level) => CalculateStat(minDmg, minDmgIncreasePerLevel, level);
 
-    public float MaxDmg(int level) => CalculateStat(maxDmg, maxDmgIncreasePerLevel, level);
+    public int MaxDmg(int level) => CalculateStat(maxDmg, maxDmgIncreasePerLevel, level);
 
-    public float Speed(int level) => CalculateStat(speed, speedIncreasePerLevel, level);
+    public int Speed(int level) => CalculateStat(speed, speedIncreasePerLevel, level);
 
-    private float CalculateStat(float baseStat, float increasePerLevel, int level)
+    private int CalculateStat(int baseStat, float increasePerLevel, int level)
     {
-        return baseStat * (1 + increasePerLevel * (level - 1));
+        return Mathf.RoundToInt(baseStat * (1 + increasePerLevel * (level - 1)));
     }
 
     public List<GameObject> currentWeapons = new List<GameObject>();

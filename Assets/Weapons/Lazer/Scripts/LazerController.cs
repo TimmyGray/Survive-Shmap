@@ -4,7 +4,7 @@ namespace Weapons
 {
     public class LazerController : WeaponController
     {
-        protected override void LaunchProjectile(float damage, GameObject owner)
+        protected override void LaunchProjectile(int damage, GameObject owner)
         {
             GameObject newProjectile_1 = Instantiate(projectile, transform.position, Quaternion.identity);
             GameObject newProjectile_2 = Instantiate(projectile, transform.position, Quaternion.identity);

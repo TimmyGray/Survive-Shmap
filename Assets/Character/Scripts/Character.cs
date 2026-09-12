@@ -8,16 +8,16 @@ public class Character : ScriptableObject
 {
     public string Name = "Player";
 
-    public float currentHealth = 100f;
-    public float maxHealth = 100f;
+    public int currentHealth = 100;
+    public int maxHealth = 100;
 
     public int currentExp = 0;
     public int expToNextLvl = 100;
     public int level = 1;
 
-    public float minDmg = 1f;
-    public float maxDmg = 2f;
-    public float speed = 10f;
+    public int minDmg = 1;
+    public int maxDmg = 2;
+    public int speed = 10;
 
     public List<GameObject> currentWeapons = new List<GameObject>();
     public List<GameObject> currentPassiveImprovments = new List<GameObject>();
