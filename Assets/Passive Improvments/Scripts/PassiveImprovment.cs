@@ -16,8 +16,8 @@ namespace PassiveImprovments
 
         public int duration;
         public float radius;
-        public float hpGain;
-        public float hpRegen;
+        public int hpGain;
+        public int hpRegen;
         public float cooldown;
 
         public float activatingTime=0.3f;

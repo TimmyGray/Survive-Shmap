@@ -20,11 +20,11 @@ namespace Weapons
         /// <param name="minDmg">The minimum damage to add to the weapon's base damage.</param>
         /// <param name="owner">The owner of the projectile.</param>
         /// </summary>
-        public void Fire(GameObject owner, float maxDmg = 0, float minDmg = 0)
+        public void Fire(GameObject owner, int maxDmg = 0, int minDmg = 0)
         {
             if (timeToNextAttack <= 0)
             {
-                var finalDamage = Random.Range(minDmg + weapon.minDmg, maxDmg + weapon.maxDmg);
+                var finalDamage = Random.Range(minDmg + weapon.minDmg, maxDmg + weapon.maxDmg + 1);
                 LaunchProjectile(finalDamage, owner);
                 timeToNextAttack = weapon.attackCoolDown;
             }
@@ -35,6 +35,6 @@ namespace Weapons
         /// <param name="damage">The damage the projectile will deal.</param>
         /// <param name="owner">The owner of the projectile.</param>
         /// </summary>
-        protected abstract void LaunchProjectile(float damage, GameObject owner);
+        protected abstract void LaunchProjectile(int damage, GameObject owner);
     }
 }

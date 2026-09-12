@@ -10,5 +10,7 @@ public struct EnemyInitializeSettings
 
 public interface IDamageable
 {
-    void TakeDamage(float damage);
+    void HandleDamage(int damage, int maxHealth);
+    void HandleHeal(int heal, int maxHealth);
+    void HandleDeath();
 }

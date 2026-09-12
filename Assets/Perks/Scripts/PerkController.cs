@@ -30,16 +30,43 @@ public abstract class PerkController : MonoBehaviour
 
         if (fieldInfo != null)
         {
-            float currentValue = (float)fieldInfo.GetValue(character);
             float percentageIncrease = float.Parse(upgradeParameter.value) / 100f;
-            
-            fieldInfo.SetValue(character, currentValue * (direction == CHANGE_DIRECTION.INCREASE ? 1 + percentageIncrease : 1 - percentageIncrease));
+            float multiplier = direction == CHANGE_DIRECTION.INCREASE ? 1 + percentageIncrease : 1 - percentageIncrease;
+
+            if (fieldInfo.FieldType == typeof(int))
+            {
+                int currentValue = (int)fieldInfo.GetValue(character);
+                fieldInfo.SetValue(character, Mathf.RoundToInt(currentValue * multiplier));
+            }
+            else if (fieldInfo.FieldType == typeof(float))
+            {
+                float currentValue = (float)fieldInfo.GetValue(character);
+                fieldInfo.SetValue(character, currentValue * multiplier);
+            }
+            else
+            {
+                Debug.LogError($"Field '{upgradeParameter.name}' must be an int or float.");
+            }
         }
         else if (propertyInfo != null)
         {
-            float currentValue = (float)propertyInfo.GetValue(character);
             float percentageIncrease = float.Parse(upgradeParameter.value) / 100f;
-            propertyInfo.SetValue(character, currentValue * (direction == CHANGE_DIRECTION.INCREASE ? 1 + percentageIncrease : 1 - percentageIncrease));
+            float multiplier = direction == CHANGE_DIRECTION.INCREASE ? 1 + percentageIncrease : 1 - percentageIncrease;
+
+            if (propertyInfo.PropertyType == typeof(int))
+            {
+                int currentValue = (int)propertyInfo.GetValue(character);
+                propertyInfo.SetValue(character, Mathf.RoundToInt(currentValue * multiplier));
+            }
+            else if (propertyInfo.PropertyType == typeof(float))
+            {
+                float currentValue = (float)propertyInfo.GetValue(character);
+                propertyInfo.SetValue(character, currentValue * multiplier);
+            }
+            else
+            {
+                Debug.LogError($"Property '{upgradeParameter.name}' must be an int or float.");
+            }
         }
         else
         {

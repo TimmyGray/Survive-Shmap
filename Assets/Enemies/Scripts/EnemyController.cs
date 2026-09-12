@@ -5,16 +5,24 @@ public abstract class EnemyController : MonoBehaviour, IDamageable
 {
     [SerializeField]
     protected Enemy enemy;
-    protected float currentHealth;
+    [SerializeField]
+    protected Health health;
     protected int level = 1;
     protected Rigidbody2D myRigidbody2D;
 
     internal virtual void Initialize(EnemyInitializeSettings initializeSettings)
     {
-        myRigidbody2D = GetComponent<Rigidbody2D>();
-        currentHealth = enemy.MaxHealth(initializeSettings.level ?? level);
         level = initializeSettings.level ?? level;
-        Debug.Log($"Enemy initialized with level {level} and health {currentHealth}");
+
+        myRigidbody2D = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
+        health.Initialize(enemy.MaxHealth(level));
+
+        health.OnTakeDamage.AddListener(HandleDamage);
+        health.OnHeal.AddListener(HandleHeal);
+        health.OnDeath.AddListener(HandleDeath);
+
+        Debug.Log($"Enemy initialized with level {level} and health {health.CurrentHealth}");
     }
 
     /// <summary>
@@ -27,20 +35,18 @@ public abstract class EnemyController : MonoBehaviour, IDamageable
     /// </summary>
     public abstract void Fire();
 
-    /// <summary>
-    /// Apply damage to the enemy. Handles death if health drops to zero or below.
-    /// </summary>
-    public virtual void TakeDamage(float amount)
+    public virtual void HandleDamage(int damage, int maxHealth)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        Debug.Log($"Enemy took {damage} damage. Current health: {health.CurrentHealth}/{health.MaxHealth}");
     }
 
-    /// <summary>
-    /// Handle enemy death. Logic to be defined in derived classes (destroy, animation, etc).
-    /// </summary>
-    protected abstract void Die();
+    public virtual void HandleHeal(int heal, int maxHealth)
+    {
+        Debug.Log($"Enemy healed for {heal} health. Current health: {health.CurrentHealth}/{health.MaxHealth}");
+    }
+
+    public virtual void HandleDeath()
+    {
+        Debug.Log($"Enemy has died. Current health: {health.CurrentHealth}/{health.MaxHealth}");
+    }
 }

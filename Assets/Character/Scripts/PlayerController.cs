@@ -7,13 +7,14 @@ using Weapons;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-    public Character player;
+    [SerializeField]
+    private Character player;
 
+    [SerializeField]
+    private Health health;
     private InputAction moveAction;
 
     private Rigidbody2D myRigidbody2D;
-
-    private float currentHealth;
 
     private Vector2 moveDirection;
 
@@ -22,9 +23,15 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
 
+        health = GetComponent<Health>();
+        health.Initialize(player.maxHealth);
+
+        health.OnTakeDamage.AddListener(HandleDamage);
+        health.OnHeal.AddListener(HandleHeal);
+        health.OnDeath.AddListener(HandleDeath);
+
         moveAction = InputSystem.actions.FindAction("Move");
 
-        currentHealth = player.maxHealth;
 
         // Initialize the player's current weapons
         // Only for the testing phase
@@ -283,18 +290,25 @@ public class PlayerController : MonoBehaviour, IDamageable
         player.perks = new List<Perk>();
     }
 
-    public void TakeDamage(float damage)
+    public void OnDisable()
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        health.OnTakeDamage.RemoveListener(HandleDamage);
+        health.OnHeal.RemoveListener(HandleHeal);
+        health.OnDeath.RemoveListener(HandleDeath);
     }
 
-    private void Die()
+    public void HandleDamage(int damage, int maxHealth)
     {
-        // Handle player death (e.g., show game over screen, restart level, etc.)
+        Debug.Log($"Player took {damage} damage. Current health: {health.CurrentHealth}/{health.MaxHealth}");
+    }
+
+    public void HandleHeal(int heal, int maxHealth)
+    {
+        Debug.Log($"Player healed for {heal} health. Current health: {health.CurrentHealth}/{health.MaxHealth}");
+    }
+
+    public void HandleDeath()
+    {
         Debug.Log("Player has died.");
     }
 }

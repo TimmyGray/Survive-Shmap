@@ -4,7 +4,7 @@ namespace Weapons
 {
     public class LazerProjectile : Projectile
     {
-        public override void Launch(float projectileSpeed, float? angle = null)
+        public override void Launch(int projectileSpeed, float? angle = null)
         {
             if (angle != null)
             {

@@ -6,14 +6,14 @@ namespace Weapons
     {
         protected Rigidbody2D _rb;
 
-        private float damage;
+        private int damage;
         private GameObject owner;
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
 
-        public void Initialize(float damage, GameObject owner)
+        public void Initialize(int damage, GameObject owner)
         {
             this.damage = damage;
             this.owner = owner;
@@ -24,7 +24,7 @@ namespace Weapons
         /// </summary>
         /// <param name="projectileSpeed">The speed of the projectile.</param>
         /// <param name="angle">The angle of the projectile will be launched at.</param>
-        public abstract void Launch(float projectileSpeed, float? angle = null);
+        public abstract void Launch(int projectileSpeed, float? angle = null);
 
         /// <summary>
         /// Destroy the projectile when it is no longer visible.
@@ -46,11 +46,14 @@ namespace Weapons
                 return;
             }
 
-            if (other.TryGetComponent<IDamageable>(out var damageable))
+            if (other.TryGetComponent(out Health health))
             {
-                Debug.Log($"Projectile dealing {damage} damage to {other.name}");
-                damageable.TakeDamage(damage);
+                health.TakeDamage(damage);
                 Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log($"Projectile collided with {other.name}, but it does not have a Health component.");
             }
         }
     }

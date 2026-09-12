@@ -4,7 +4,7 @@ namespace Weapons
 {
     public class BlasterController : WeaponController
     {
-        protected override void LaunchProjectile(float damage, GameObject owner)
+        protected override void LaunchProjectile(int damage, GameObject owner)
         {
             GameObject newProjectile_1 = Instantiate(projectile, new Vector2(transform.position.x, transform.position.y + 0.2f), Quaternion.identity);
             GameObject newProjectile_2 = Instantiate(projectile, new Vector2(transform.position.x, transform.position.y - 0.2f), Quaternion.identity);

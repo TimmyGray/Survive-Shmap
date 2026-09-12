@@ -70,6 +70,7 @@
     <Compile Include="Assets\Enemies\Scripts\Enemy.cs" />
     <Compile Include="Assets\Weapons\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Weapons\Lazer\Scripts\LazerProjectile.cs" />
+    <Compile Include="Assets\Scripts\Heath.cs" />
     <Compile Include="Assets\Perks\Scripts\PerkController.cs" />
     <Compile Include="Assets\Perks\Scripts\Perk.cs" />
     <Compile Include="Assets\Weapons\Rocket Launcher\Scripts\ExplosiveProjectile.cs" />

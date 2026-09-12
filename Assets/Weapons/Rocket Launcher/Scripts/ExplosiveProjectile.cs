@@ -7,7 +7,7 @@ namespace Weapons
     {
         public float delayBeforeAutonavigation = 0.2f;
         
-        public override void Launch(float projectileSpeed, float? angle = null)
+        public override void Launch(int projectileSpeed, float? angle = null)
         {
             if (angle !=null)
             {
@@ -53,7 +53,7 @@ namespace Weapons
         /// Auto navigate the projectile to the target after a short delay for the nice effect.
         /// This function should be called inside a coroutine.
         /// </summary>
-        private IEnumerator AutoNavigateToTarget(GameObject target, float projectileSpeed){
+        private IEnumerator AutoNavigateToTarget(GameObject target, int projectileSpeed){
             yield return new WaitForSeconds(delayBeforeAutonavigation);
             
             while (target != null)

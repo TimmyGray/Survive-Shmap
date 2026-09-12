@@ -38,13 +38,13 @@ public class ScoutDrone : EnemyController
         else
             dirSign = Random.value < 0.5f ? CHANGE_DIRECTION.DECREASE : CHANGE_DIRECTION.INCREASE;
 
-        float speed = Random.Range(0.7f, 1.2f) * enemy.Speed(level);
+        int speed = Mathf.RoundToInt(Random.Range(0.7f, 1.2f) * enemy.Speed(level));
         progressPerSecond = speed / horizontalTravel;
         t = 0f;
 
         enabled = true;
 
-        Debug.Log($"ScoutDrone initialized with level {level}, health {currentHealth}, speed {speed}, bumpHeight {bumpHeight}, dirSign {dirSign}, progressPerSecond {progressPerSecond}, horizontalTravel {horizontalTravel}, starting position ({startPosition.x}, {startPosition.y}), ending position ({endPosition.x}, {endPosition.y})");
+        Debug.Log($"ScoutDrone initialized with level {level}, health {health.CurrentHealth}, speed {speed}, bumpHeight {bumpHeight}, dirSign {dirSign}, progressPerSecond {progressPerSecond}, horizontalTravel {horizontalTravel}, starting position ({startPosition.x}, {startPosition.y}), ending position ({endPosition.x}, {endPosition.y})");
     }
 
     void Update()
@@ -65,14 +65,11 @@ public class ScoutDrone : EnemyController
         if (t >= 1f)
         {
             Debug.Log("ScoutDrone has exited the screen and will be destroyed.");
-            Die();
+            Destroy(gameObject);
         }
     }
 
     public override void Fire() { }
 
-    protected override void Die()
-    {
-        Destroy(gameObject);
-    }
+
 }
