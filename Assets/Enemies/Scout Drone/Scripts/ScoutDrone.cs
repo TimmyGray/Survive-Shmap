@@ -1,4 +1,5 @@
 using UnityEngine;
+using Weapons;
 
 public class ScoutDrone : EnemyController
 {
@@ -10,6 +11,11 @@ public class ScoutDrone : EnemyController
     private float progressPerSecond;
     private float t = 0f;
 
+    private const float FireAngle = 180f; // Drones fly and shoot to the left
+
+    private WeaponController weaponController;
+    private bool isAllowedToFire = false;
+
     private void Awake()
     {
         enabled = false;
@@ -19,6 +25,26 @@ public class ScoutDrone : EnemyController
     {
         base.Initialize(initializeSettings);
 
+        MovementInitialize();
+
+        WeaponInitialize();
+
+        enabled = true;
+
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+
+        if (isAllowedToFire)
+        {
+            Fire();
+        }
+    }
+
+    private void MovementInitialize()
+    {
         Camera cam = Camera.main;
         float camHalfHeight = cam.orthographicSize;
         float camHalfWidth = camHalfHeight * cam.aspect;
@@ -41,15 +67,41 @@ public class ScoutDrone : EnemyController
         int speed = Mathf.RoundToInt(Random.Range(0.7f, 1.2f) * enemy.Speed(level));
         progressPerSecond = speed / horizontalTravel;
         t = 0f;
-
-        enabled = true;
-
-        Debug.Log($"ScoutDrone initialized with level {level}, health {health.CurrentHealth}, speed {speed}, bumpHeight {bumpHeight}, dirSign {dirSign}, progressPerSecond {progressPerSecond}, horizontalTravel {horizontalTravel}, starting position ({startPosition.x}, {startPosition.y}), ending position ({endPosition.x}, {endPosition.y})");
     }
 
-    void Update()
+    private void WeaponInitialize()
     {
-        Move();
+        if (enemy.currentWeapons.Count > 0)
+        {
+            Transform weaponSlot = FindWeaponSlot();
+            if (weaponSlot == null)
+            {
+                isAllowedToFire = false;
+                return;
+            }
+
+            GameObject weapon = Instantiate(enemy.currentWeapons[0], weaponSlot.position, Quaternion.identity);
+            weapon.transform.SetParent(weaponSlot);
+
+            // Fire the instance attached to this drone, not the prefab asset.
+            isAllowedToFire = weapon.TryGetComponent(out weaponController);
+        }
+    }
+
+    /// <summary>
+    /// Find the "Weapon Slot" among this drone's own children (not the whole scene).
+    /// </summary>
+    private Transform FindWeaponSlot()
+    {
+        foreach (Transform child in GetComponentsInChildren<Transform>())
+        {
+            if (child.CompareTag("Weapon Slot"))
+            {
+                return child;
+            }
+        }
+
+        return null;
     }
 
     public override void Move()
@@ -69,7 +121,8 @@ public class ScoutDrone : EnemyController
         }
     }
 
-    public override void Fire() { }
-
-
+    public override void Fire()
+    {
+        weaponController.Fire(gameObject, enemy.MaxDmg(level), enemy.MinDmg(level), FireAngle);
+    }
 }

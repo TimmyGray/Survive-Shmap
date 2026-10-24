@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: -1128740599606709008}
   m_Layer: 0
   m_Name: First Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 6284826599434525357}
   m_Layer: 0
   m_Name: Third Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: -3986992168377514229}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Weapon Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: -869871736487022269}
   m_Layer: 0
   m_Name: Second Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon Slot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

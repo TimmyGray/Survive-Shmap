@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private Vector2 moveDirection;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
@@ -67,13 +66,9 @@ public class PlayerController : MonoBehaviour, IDamageable
             bool isWeaponExist = weapon.TryGetComponent<WeaponController>(
                 out WeaponController weaponController
             );
-            if (isWeaponExist && weaponController.timeToNextAttack <= 0)
+            if (isWeaponExist)
             {
                 weaponController.Fire(gameObject, player.maxDmg, player.minDmg);
-            }
-            else if (isWeaponExist)
-            {
-                weaponController.timeToNextAttack -= Time.fixedDeltaTime;
             }
         }
     }

@@ -21,6 +21,7 @@ MonoBehaviour:
   minDmgIncreasePerLevel: 0.1
   maxDmgIncreasePerLevel: 0.1
   speedIncreasePerLevel: 0.1
-  currentWeapons: []
+  currentWeapons:
+  - {fileID: 4272882823905091042, guid: 91ec80687565f5b4694f351ba184b3c0, type: 3}
   currentPassiveImprovments: []
   perks: []

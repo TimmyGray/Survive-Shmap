@@ -1,5 +1,4 @@
 using UnityEngine;
-using Weapons;
 
 public abstract class EnemyController : MonoBehaviour, IDamageable
 {

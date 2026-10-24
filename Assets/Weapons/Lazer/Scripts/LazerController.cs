@@ -4,7 +4,7 @@ namespace Weapons
 {
     public class LazerController : WeaponController
     {
-        protected override void LaunchProjectile(int damage, GameObject owner)
+        protected override void LaunchProjectile(int damage, GameObject owner, float baseAngle)
         {
             GameObject newProjectile_1 = Instantiate(projectile, transform.position, Quaternion.identity);
             GameObject newProjectile_2 = Instantiate(projectile, transform.position, Quaternion.identity);
@@ -18,9 +18,9 @@ namespace Weapons
             lazerProjectile_2.Initialize(damage, owner);
             lazerProjectile_3.Initialize(damage, owner);
 
-            lazerProjectile_1.Launch(weapon.projectileSpeed, 10);
-            lazerProjectile_2.Launch(weapon.projectileSpeed, 0);
-            lazerProjectile_3.Launch(weapon.projectileSpeed, -10);
+            lazerProjectile_1.Launch(weapon.projectileSpeed, baseAngle + 10);
+            lazerProjectile_2.Launch(weapon.projectileSpeed, baseAngle);
+            lazerProjectile_3.Launch(weapon.projectileSpeed, baseAngle - 10);
         }
     }
 }
