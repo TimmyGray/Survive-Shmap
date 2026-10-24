@@ -8,7 +8,7 @@ namespace Weapons
     /// </summary>
     public class RocketLauncherController : WeaponController
     {
-        protected override void LaunchProjectile(int damage, GameObject owner)
+        protected override void LaunchProjectile(int damage, GameObject owner, float baseAngle)
         {
             GameObject newProjectile_1 = Instantiate(projectile, transform.position, Quaternion.identity);
             GameObject newProjectile_2 = Instantiate(projectile, transform.position, Quaternion.identity);
@@ -19,8 +19,8 @@ namespace Weapons
             explosiveProjectile_1.Initialize(damage, owner);
             explosiveProjectile_2.Initialize(damage, owner);
 
-            explosiveProjectile_1.Launch(weapon.projectileSpeed, 20);
-            explosiveProjectile_2.Launch(weapon.projectileSpeed, -20);
+            explosiveProjectile_1.Launch(weapon.projectileSpeed, baseAngle + 20);
+            explosiveProjectile_2.Launch(weapon.projectileSpeed, baseAngle - 20);
         }
     }
 }

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8222110796882268615}
   - component: {fileID: 5798810788625541789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rocket Launcher
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,4 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: b90b0408066fd064b87e9244fbd0abf6, type: 2}
   projectile: {fileID: 1092578891657578574, guid: a762efaeb0ef84a40abec7ec10434f2d, type: 3}
-  timeToNextAttack: 0.30000114

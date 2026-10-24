@@ -6,7 +6,12 @@ namespace Weapons
     {
         public override void Launch(int speed, float? angle = null)
         {
-            _rb.AddForce(new Vector2(speed, 0), ForceMode2D.Impulse);
+            if (angle != null)
+            {
+                transform.eulerAngles = new Vector3(0, 0, angle.Value);
+            }
+
+            _rb.AddForce((Vector2)transform.right * speed, ForceMode2D.Impulse);
         }
     }
 }
